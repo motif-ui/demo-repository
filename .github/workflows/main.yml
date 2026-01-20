@@ -20,6 +20,7 @@ jobs:
 
       - name: Check branch name
         if: github.event_name == 'pull_request'
+        shell: bash
         run: |
           BRANCH_NAME="${{ github.head_ref }}"
           if [[ $BRANCH_NAME =~ ^(bugfix|hotfix|test|feature)/EDKUI-[0-9]+/[a-zA-Z0-9_-]+$ ]]; then
