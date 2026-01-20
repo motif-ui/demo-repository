@@ -65,6 +65,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install deps
+        run: |
+          npm install --cache .npm --prefer-offline
+
       - name: Lint & type check
         run: |
           npm run lint
