@@ -1,1 +1,170 @@
+name: CI Pipeline
 
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  ###########################
+  ######## prepare ##########
+  ###########################
+  prepare:
+    name: Prepare checks
+    runs-on: ubuntu-latest
+    container: node:24.11.0
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check branch name
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          BRANCH_NAME="${{ github.head_ref }}"
+          if [[ $BRANCH_NAME =~ ^(bugfix|hotfix|test|feature)/EDKUI-[0-9]+/[a-zA-Z0-9_-]+$ ]]; then
+            echo "✅ Branch name is valid."
+          else
+            echo "❌ Invalid branch name: $BRANCH_NAME"
+            exit 1
+          fi
+
+  ###########################
+  ######## install ##########
+  ###########################
+  install:
+    name: Install dependencies
+    runs-on: ubuntu-latest
+    container: node:24.11.0
+    needs: prepare
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            .npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+
+      - name: Install deps
+        run: |
+          npm install --cache .npm --prefer-offline
+
+  ###########################
+  ######## build ############
+  ###########################
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    container: node:24.11.0
+    needs: install
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build library
+        run: npm run build:lib
+
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  ###########################
+  ######## test #############
+  ###########################
+  test:
+    name: Lint & Unit Tests
+    runs-on: ubuntu-latest
+    container: node:24.11.0
+    needs: build
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lint & type check
+        run: |
+          npm run lint
+          npm run type-check
+
+      - name: Unit tests
+        run: npm run test:ci
+
+  ###########################
+  ###### deploy (test) ######
+  ###########################
+  deploy-to-build:
+    name: Deploy to build (storybook)
+    runs-on: ubuntu-latest
+    container: node:24.11.0
+    needs: [build, test]
+    continue-on-error: true
+
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install lftp
+        run: |
+          apt-get update -qq
+          apt-get install -y lftp
+
+      - name: Build storybook
+        run: npm run build:storybook
+
+      - name: Deploy via FTP
+        env:
+          BUILD_HOST: ${{ secrets.BUILD_HOST }}
+          BUILD_USER: ${{ secrets.BUILD_USER }}
+          BUILD_PASSWORD: ${{ secrets.BUILD_PASSWORD }}
+        run: |
+          lftp -e "set sftp:auto-confirm yes; mirror -e --reverse -X .* --verbose storybook-static/ /build/storybook/; quit" \
+          -u $BUILD_USER,$BUILD_PASSWORD ftp://$BUILD_HOST -p 21
+
+  ###########################
+  ###### chromatic ##########
+  ###########################
+  chromatic:
+    name: Chromatic Publish
+    runs-on: ubuntu-latest
+    container: node:24.11.0
+    needs: [build, test]
+    if: github.ref == 'refs/heads/main'
+    continue-on-error: true
+
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm run chromatic:cli
+
+  ###########################
+  ######## release ##########
+  ###########################
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    container: node:24.11.0
+    needs: build
+    if: github.ref == 'refs/heads/main'
+
+    env:
+      HUSKY: 0
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      NPM_REGISTRY_PRIVATE: ${{ secrets.NPM_REGISTRY_PRIVATE }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare npmrc
+        run: |
+          echo "@edk:registry=http:${NPM_REGISTRY_PRIVATE}" >> .npmrc
+          echo "${NPM_REGISTRY_PRIVATE}:_auth=${NPM_TOKEN}" >> .npmrc
+          cat .npmrc
+
+      - name: Semantic release
+        run: npm run semantic-release
