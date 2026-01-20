@@ -31,10 +31,10 @@ jobs:
           fi
 
   ###########################
-  ######## install ##########
+  ######## build ############
   ###########################
-  install:
-    name: Install dependencies
+  build:
+    name: Build
     runs-on: ubuntu-latest
     container: node:24.11.0
     needs: prepare
@@ -50,21 +50,8 @@ jobs:
             .npm
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
 
-      - name: Install deps
-        run: |
-          npm install --cache .npm --prefer-offline
-
-  ###########################
-  ######## build ############
-  ###########################
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    container: node:24.11.0
-    needs: install
-
-    steps:
-      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm ci --cache .npm --prefer-offline
 
       - name: Build library
         run: npm run build:lib
@@ -87,6 +74,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            .npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+
+      - name: Install dependencies
+        run: npm ci --cache .npm --prefer-offline
+
       - name: Lint & type check
         run: |
           npm run lint
@@ -104,11 +102,21 @@ jobs:
     container: node:24.11.0
     needs: [build, test]
     continue-on-error: true
-
     if: github.ref == 'refs/heads/main'
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            .npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+
+      - name: Install dependencies
+        run: npm ci --cache .npm --prefer-offline
 
       - name: Install lftp
         run: |
@@ -140,7 +148,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - run: npm run chromatic:cli
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            .npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+
+      - name: Install dependencies
+        run: npm ci --cache .npm --prefer-offline
+
+      - name: Publish to Chromatic
+        run: npm run chromatic:cli
 
   ###########################
   ######## release ##########
@@ -160,11 +181,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            .npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+
+      - name: Install dependencies
+        run: npm ci --cache .npm --prefer-offline
+
       - name: Prepare npmrc
         run: |
           echo "@edk:registry=http:${NPM_REGISTRY_PRIVATE}" >> .npmrc
           echo "${NPM_REGISTRY_PRIVATE}:_auth=${NPM_TOKEN}" >> .npmrc
-          cat .npmrc
 
       - name: Semantic release
         run: npm run semantic-release
