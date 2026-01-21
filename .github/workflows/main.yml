@@ -132,7 +132,7 @@ jobs:
     runs-on: ubuntu-latest
     container: node:24.11.0
     needs: [build, test]
-    if: github.ref == 'refs/heads/main'
+#    if: github.ref == 'refs/heads/main'
     continue-on-error: true
 
     steps:
