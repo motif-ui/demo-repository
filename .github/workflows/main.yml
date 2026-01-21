@@ -117,6 +117,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install deps
+        run: |
+          npm install --cache .npm --prefer-offline
+
       - name: Build storybook
         run: npm run build:storybook
 
