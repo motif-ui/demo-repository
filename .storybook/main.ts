@@ -32,11 +32,7 @@ const config: StorybookConfig = {
     });
 
     // Find the rule for CSS Modules and update getLocalIdent
-    if (process.env.CHROMATIC !== "true") {
-      return applyCustomCSSModuleNaming(config, { rootDir: process.cwd() });
-    }
-
-    return config;
+    return applyCustomCSSModuleNaming(config, { rootDir: process.cwd() });
   },
 
   typescript: {
