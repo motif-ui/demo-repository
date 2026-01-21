@@ -84,9 +84,6 @@ const preview: Preview = {
       },
     },
     layout: "centered",
-    chromatic: {
-      disable: process.env.NODE_ENV === "production",
-    },
   },
   tags: ["autodocs"],
 };
