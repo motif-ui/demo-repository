@@ -14,7 +14,6 @@ jobs:
     name: Prepare checks
     runs-on: ubuntu-latest
     container: node:24.11.0
-    if: github.ref == 'refs/heads/main'
 
     steps:
       - uses: actions/checkout@v4
@@ -39,7 +38,6 @@ jobs:
     runs-on: ubuntu-latest
     container: node:24.11.0
     needs: prepare
-    if: github.ref == 'refs/heads/main'
 
     steps:
       - uses: actions/checkout@v4
@@ -64,7 +62,6 @@ jobs:
     runs-on: ubuntu-latest
     container: node:24.11.0
     needs: install
-    if: github.ref == 'refs/heads/main'
 
     steps:
       - uses: actions/checkout@v4
@@ -90,7 +87,6 @@ jobs:
     runs-on: ubuntu-latest
     container: node:24.11.0
     needs: build
-    if: github.ref == 'refs/heads/main'
 
     steps:
       - uses: actions/checkout@v4
