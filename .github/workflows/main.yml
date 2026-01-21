@@ -111,29 +111,14 @@ jobs:
     runs-on: ubuntu-latest
     container: node:24.11.0
     needs: [build, test]
-    continue-on-error: true
 
-    if: github.ref == 'refs/heads/main'
+#    if: github.ref == 'refs/heads/main'
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install lftp
-        run: |
-          apt-get update -qq
-          apt-get install -y lftp
-
       - name: Build storybook
         run: npm run build:storybook
-
-      - name: Deploy via FTP
-        env:
-          BUILD_HOST: ${{ secrets.BUILD_HOST }}
-          BUILD_USER: ${{ secrets.BUILD_USER }}
-          BUILD_PASSWORD: ${{ secrets.BUILD_PASSWORD }}
-        run: |
-          lftp -e "set sftp:auto-confirm yes; mirror -e --reverse -X .* --verbose storybook-static/ /build/storybook/; quit" \
-          -u $BUILD_USER,$BUILD_PASSWORD ftp://$BUILD_HOST -p 21
 
   ###########################
   ###### chromatic ##########
