@@ -157,9 +157,12 @@ jobs:
           npm install --cache .npm --prefer-offline
 
       - name: Chromatic publish
-        env:
-          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-        run: npm run chromatic:cli
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+            # Chromatic kendi build'ini yapacak
+          autoAcceptChanges: true
+          exitZeroOnChanges: true
 
   ###########################
   ######## release ##########
