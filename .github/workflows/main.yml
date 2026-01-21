@@ -143,6 +143,8 @@ jobs:
           npm install --cache .npm --prefer-offline
 
       - name: Chromatic publish
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
         run: npm run chromatic:cli
 
   ###########################

@@ -1,8 +1,8 @@
 {
   "name": "@demo/demo-react",
   "version": "2.5.2",
-  "description": "React Component Library of Turkish e-Government Gateway",
-  "author": "TÜRKSAT | e-Government and Knowledge Society Department",
+  "description": "Another React UI library created by public sector developers",
+  "author": "MOTIF UI | Turksat e-Government Application Development",
   "private": false,
   "scripts": {
     "build": "next build",
@@ -21,7 +21,6 @@
     "prepare": "husky",
     "semantic-release": "semantic-release",
     "storybook": "storybook dev -p 6006",
-    "chromatic": "npx chromatic --project-token=chpt_23a36ef493129f4 --build-script-name build:storybook",
     "chromatic:cli": "npm run build:storybook && npx chromatic --exit-zero-on-changes -d storybook-static/",
     "type-check": "tsc --noemit",
     "maintanence-check": "npm run test:ci && npm run build:lib && npm run build:theme-default && npm run build && npm run dev"
