@@ -5,6 +5,10 @@ exports[`Divider should be rendered with only required props 1`] = `
   <div
     class="Root md horizontal gap-md solid"
     data-testid="dividerItem"
-  />
+  >
+    <p>
+      New changes
+    </p>
+  </div>
 </div>
 `;
