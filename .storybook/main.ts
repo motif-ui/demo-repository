@@ -11,7 +11,7 @@ const config: StorybookConfig = {
     disableTelemetry: true,
   },
 
-  addons: ["@storybook/addon-links", "@chromatic-com/storybook", "@storybook/addon-docs"],
+  addons: ["@storybook/addon-links", "@storybook/addon-docs"],
 
   framework: {
     name: "@storybook/nextjs",
