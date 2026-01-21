@@ -84,6 +84,9 @@ const preview: Preview = {
       },
     },
     layout: "centered",
+    chromatic: {
+      disable: true,
+    },
   },
   tags: ["autodocs"],
 };
