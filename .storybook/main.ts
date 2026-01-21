@@ -38,8 +38,5 @@ const config: StorybookConfig = {
   typescript: {
     reactDocgen: "react-docgen-typescript",
   },
-  features: {
-    interactions: process.env.NODE_ENV === "development",
-  },
 };
 export default config;
