@@ -11,7 +11,16 @@ const config: StorybookConfig = {
     disableTelemetry: true,
   },
 
-  addons: ["@storybook/addon-links", "@storybook/addon-docs"],
+  addons: [
+    "@storybook/addon-links",
+    "@storybook/addon-docs",
+    {
+      name: "@storybook/addon-essentials",
+      options: {
+        interactions: false, // Interactions'ı devre dışı bırak
+      },
+    },
+  ],
 
   framework: {
     name: "@storybook/nextjs",
