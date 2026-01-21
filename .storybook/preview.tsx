@@ -84,8 +84,10 @@ const preview: Preview = {
       },
     },
     layout: "centered",
-    chromatic: {
-      disable: true,
+    parameters: {
+      chromatic: {
+        disableSnapshot: true, // Snapshot almayı devre dışı bırak
+      },
     },
   },
   tags: ["autodocs"],
