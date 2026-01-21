@@ -31,4 +31,10 @@ const meta: Meta<typeof Divider> = {
 export default meta;
 type Story = StoryObj<typeof Divider>;
 
-export const Primary: Story = {};
+export const Primary: Story = {
+  render: args => (
+    <div {...(args.orientation === "vertical" && { style: { display: "flex" } })}>
+      <Divider {...args} />
+    </div>
+  ),
+};
