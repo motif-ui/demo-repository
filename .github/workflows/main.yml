@@ -137,7 +137,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - run: npm run chromatic:cli
+
+      - name: Install deps
+        run: |
+          npm install --cache .npm --prefer-offline
+
+      - name: Chromatic publish
+        run: npm run chromatic:cli
 
   ###########################
   ######## release ##########
