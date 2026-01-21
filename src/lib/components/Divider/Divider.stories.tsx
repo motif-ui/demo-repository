@@ -1,0 +1,34 @@
+import type { Meta, StoryObj } from "@storybook/nextjs";
+
+import Divider from "./Divider";
+
+const meta: Meta<typeof Divider> = {
+  title: "Components/Divider",
+  component: Divider,
+  decorators: [
+    Story => (
+      <div>
+        <Story />
+      </div>
+    ),
+  ],
+  parameters: {
+    docs: {
+      description: {
+        component: `When using this component, **height** value or **display:flex** property should be given to the style properties of the parent element containing the component.`,
+      },
+    },
+  },
+  argTypes: {
+    size: { table: { defaultValue: { summary: "md" } } },
+    gap: { table: { defaultValue: { summary: "md" } } },
+    orientation: { table: { defaultValue: { summary: "horizontal" } } },
+    shape: { table: { defaultValue: { summary: "solid" } } },
+  },
+  args: {},
+};
+
+export default meta;
+type Story = StoryObj<typeof Divider>;
+
+export const Primary: Story = {};

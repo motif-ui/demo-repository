@@ -127,25 +127,25 @@ jobs:
   ###########################
   ######## release ##########
   ###########################
-  release:
-    name: Release
-    runs-on: ubuntu-latest
-    container: node:24.11.0
-    if: github.ref == 'refs/heads/main'
-
-    env:
-      HUSKY: 0
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      NPM_REGISTRY_PRIVATE: ${{ secrets.NPM_REGISTRY_PRIVATE }}
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Prepare npmrc
-        run: |
-          echo "@edk:registry=http:${NPM_REGISTRY_PRIVATE}" >> .npmrc
-          echo "${NPM_REGISTRY_PRIVATE}:_auth=${NPM_TOKEN}" >> .npmrc
-          cat .npmrc
-
-      - name: Semantic release
-        run: npm run semantic-release
+#  release:
+#    name: Release
+#    runs-on: ubuntu-latest
+#    container: node:24.11.0
+#    if: github.ref == 'refs/heads/main'
+#
+#    env:
+#      HUSKY: 0
+#      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+#      NPM_REGISTRY_PRIVATE: ${{ secrets.NPM_REGISTRY_PRIVATE }}
+#
+#    steps:
+#      - uses: actions/checkout@v4
+#
+#      - name: Prepare npmrc
+#        run: |
+#          echo "@edk:registry=http:${NPM_REGISTRY_PRIVATE}" >> .npmrc
+#          echo "${NPM_REGISTRY_PRIVATE}:_auth=${NPM_TOKEN}" >> .npmrc
+#          cat .npmrc
+#
+#      - name: Semantic release
+#        run: npm run semantic-release
