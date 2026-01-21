@@ -86,6 +86,7 @@ jobs:
     name: Lint & Unit Tests
     runs-on: ubuntu-latest
     container: node:24.11.0
+    needs: build
 
     steps:
       - uses: actions/checkout@v4
@@ -109,7 +110,7 @@ jobs:
     name: Deploy to build (storybook)
     runs-on: ubuntu-latest
     container: node:24.11.0
-    needs: [test]
+    needs: [build, test]
     continue-on-error: true
 
     if: github.ref == 'refs/heads/main'
@@ -141,7 +142,7 @@ jobs:
     name: Chromatic Publish
     runs-on: ubuntu-latest
     container: node:24.11.0
-    needs: [test]
+    needs: [build, test]
     if: github.ref == 'refs/heads/main'
     continue-on-error: true
 
@@ -156,6 +157,7 @@ jobs:
 #    name: Release
 #    runs-on: ubuntu-latest
 #    container: node:24.11.0
+#    needs: build
 #    if: github.ref == 'refs/heads/main'
 #
 #    env:
