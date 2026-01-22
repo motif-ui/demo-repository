@@ -43,7 +43,6 @@ jobs:
     name: Install dependencies
     runs-on: ubuntu-latest
     container: node:24.11.0
-    needs: prepare
 
     steps:
       - uses: actions/checkout@v4
@@ -173,6 +172,7 @@ jobs:
     runs-on: ubuntu-latest
     container: node:24.11.0
     needs: build
+    if: github.event_name == 'push'
 
     env:
       HUSKY: 0
