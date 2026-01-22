@@ -4,14 +4,14 @@ import { applyCustomCSSModuleNaming } from "../src/lib/styles/scripts/build";
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
-
+  features: { interactions: false },
   staticDirs: [{ from: "../src/lib/styles/themes", to: "/themes" }],
 
   core: {
     disableTelemetry: true,
   },
 
-  addons: ["@storybook/addon-links", "@chromatic-com/storybook", "@storybook/addon-docs"],
+  addons: ["@storybook/addon-links", "@storybook/addon-docs"],
 
   framework: {
     name: "@storybook/nextjs",

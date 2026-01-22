@@ -1,7 +1,6 @@
 import type { Preview } from "@storybook/nextjs";
 import { EDKUIProvider } from "../src/lib";
 import { useInsertionEffect } from "react";
-import { CustomTabContainer } from "./customTab/CustomTabContainer";
 
 const DEFAULT_THEME = "default-theme";
 const RESET_THEME_BUTTON_VAL = "_reset";
@@ -78,7 +77,6 @@ const preview: Preview = {
       },
     },
     docs: {
-      container: CustomTabContainer,
       toc: {
         title: "On this page",
         headingSelector: "h2, h3",

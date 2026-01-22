@@ -1,7 +1,7 @@
 import "./globals.css";
 import "../lib/styles/themes/default-theme.css";
 import type { ReactNode } from "react";
-import { EDKUIProvider } from "../lib";
+import EDKUIProvider from "../lib/edk/context/EDKUIProvider";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
