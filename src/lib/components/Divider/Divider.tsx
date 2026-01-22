@@ -19,11 +19,7 @@ const Divider = (props: PropsWithRef<DividerProps, HTMLDivElement>) => {
 
   const classNames = sanitizeModuleRootClasses(styles, className, [size, orientation, `gap-${gap}`, shape]);
 
-  return (
-    <div ref={ref} className={classNames} data-testid="dividerItem" style={style}>
-      <p>New changes</p>
-    </div>
-  );
+  return <div ref={ref} className={classNames} data-testid="dividerItem" style={style} />;
 };
 
 Divider.displayName = "Divider";
