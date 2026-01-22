@@ -14,7 +14,7 @@ jobs:
     name: Prepare checks
     runs-on: ubuntu-latest
     container: node:24.11.0
-    if: github.ref != 'refs/heads/main'
+    if: github.head_ref != 'refs/heads/main'
 
     steps:
       - uses: actions/checkout@v4
