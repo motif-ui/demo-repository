@@ -1,9 +1,13 @@
 {
-  "name": "@demo/demo-react",
+  "name": "@ab-demo-ui/demo-react",
   "version": "2.5.2",
   "description": "Another React UI library created by public sector developers",
   "author": "MOTIF UI | Turksat e-Government Application Development",
   "private": false,
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
   "scripts": {
     "build": "next build",
     "dev": "next dev --webpack",
