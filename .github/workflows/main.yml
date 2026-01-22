@@ -16,13 +16,16 @@ jobs:
     if: github.event_name == 'pull_request'
 
     steps:
-      - uses: actions/checkout@v4
-
       - name: Check branch name
         shell: bash
         run: |
           BRANCH_NAME="${GITHUB_HEAD_REF}"
           echo "Branch name: $BRANCH_NAME"
+
+          if [[ "$BRANCH_NAME" == "main" ]]; then
+            echo "ℹ️ Source branch is main, skipping branch name check."
+            exit 0
+          fi
 
           if [[ "$BRANCH_NAME" =~ ^(bugfix|hotfix|test|feature)/EDKUI-[0-9]+/[a-zA-Z0-9_-]+$ ]]; then
             echo "✅ Branch name is valid."
@@ -31,6 +34,7 @@ jobs:
             echo "❌ Invalid branch name: $BRANCH_NAME"
             exit 1
           fi
+  
 
   ###########################
   ######## install ##########
@@ -188,7 +192,7 @@ jobs:
         run: |
           npm install --cache .npm --prefer-offline
 
-      - name: Build library
+      - name: Build Library
         run: npm run build:lib
 
       - name: Semantic Release
