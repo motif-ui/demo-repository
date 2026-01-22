@@ -188,7 +188,7 @@ jobs:
         run: |
           npm install --cache .npm --prefer-offline
 
-      - name: Build Library
+      - name: Build library
         run: npm run build:lib
 
       - name: Semantic Release
