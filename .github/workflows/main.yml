@@ -22,10 +22,8 @@ jobs:
       - name: Check branch name
         shell: bash
         run: |
-          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
-          echo "Branch name: $BRANCH_NAME"
-
-          if [[ "$BRANCH_NAME" =~ ^(bugfix|hotfix|test|feature)/EDKUI-[0-9]+/[a-zA-Z0-9_-]+$ ]]; then
+          BRANCH_NAME="${{ github.head_ref }}"
+          if [[ $BRANCH_NAME =~ ^(bugfix|hotfix|test|feature)/EDKUI-[0-9]+/[a-zA-Z0-9_-]+$ ]]; then
             echo "✅ Branch name is valid."
           else
             echo "❌ Invalid branch name: $BRANCH_NAME"
