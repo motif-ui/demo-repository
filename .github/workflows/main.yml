@@ -189,6 +189,10 @@ jobs:
           node-version: 24
           registry-url: https://registry.npmjs.org/
 
+      - name: Prepare npmrc
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+
       - name: Install deps
         run: |
           npm install --cache .npm --prefer-offline
