@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   ###########################
@@ -136,6 +137,7 @@ jobs:
     environment: production
     needs: [build, test]
     continue-on-error: true
+    if: github.event_name == 'push'
 
     steps:
       - uses: actions/checkout@v4
@@ -170,7 +172,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     needs: [build, test]
-    if: github.event_name == 'push'
+    if: github.event_name == 'workflow_dispatch'
 
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
