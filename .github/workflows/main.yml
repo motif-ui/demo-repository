@@ -112,7 +112,7 @@ jobs:
   ###### deploy (test) ######
   ###########################
   deploy-to-build:
-    name: Deploy to build (storybook)
+    name: Deploy to Build (storybook)
     runs-on: ubuntu-latest
     container: node:24.11.0
     needs: [build, test]
