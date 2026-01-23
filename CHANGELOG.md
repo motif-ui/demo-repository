@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/motif-ui/demo-repository/compare/v1.0.3...v1.0.4) (2026-01-23)
+
+
+### Bug Fixes
+
+* release check ([#42](https://github.com/motif-ui/demo-repository/issues/42)) ([20ba3bd](https://github.com/motif-ui/demo-repository/commit/20ba3bd2a07ffe656334c96d8770a5b3856b9338))
+
 ## [1.0.3](https://github.com/motif-ui/demo-repository/compare/v1.0.2...v1.0.3) (2026-01-23)
 
 
