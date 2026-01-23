@@ -1,8 +1,8 @@
 {
   "name": "@ab-demo-ui/demo-react",
   "version": "1.0.4",
-  "description": "Another React UI library created by public sector developers",
-  "author": "MOTIF UI | Turksat e-Government Application Development",
+  "description": "Atakan Bayrak",
+  "author": "Atakan Bayrak",
   "private": false,
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
