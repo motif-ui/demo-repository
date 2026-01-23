@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: Motif CI Pipeline
 
 on:
   pull_request:
