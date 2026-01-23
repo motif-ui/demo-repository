@@ -133,6 +133,7 @@ jobs:
   chromatic:
     name: Chromatic Publish
     runs-on: ubuntu-latest
+    environment: production
     needs: [build, test]
     continue-on-error: true
 
@@ -167,11 +168,12 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    environment: production
     needs: [build, test]
     if: github.event_name == 'push'
 
     env:
-      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       HUSKY: 0
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
