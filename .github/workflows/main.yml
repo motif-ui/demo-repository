@@ -181,7 +181,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Prepare npmrc
+      - name: Prepare npmrc for npm publish
         run: |
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
 
