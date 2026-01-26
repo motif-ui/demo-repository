@@ -14,7 +14,6 @@ jobs:
   prepare:
     name: Check Branch name
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
 
     steps:
       - name: Check branch name
