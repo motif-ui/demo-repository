@@ -135,6 +135,7 @@ jobs:
     name: Chromatic Publish
     runs-on: ubuntu-latest
     environment: production
+    container: node:24.11.0
     needs: [build, test]
     continue-on-error: true
     if: github.event_name == 'push'
@@ -143,12 +144,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '24.11.0'
-          cache: 'npm'
 
       - name: Mark repo as safe for git
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
@@ -171,6 +166,7 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     environment: production
+    container: node:24.11.0
     needs: [build, test]
     if: github.event_name == 'workflow_dispatch'
 
@@ -184,12 +180,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24
-          registry-url: https://registry.npmjs.org/
 
       - name: Prepare npmrc
         run: |
