@@ -23,6 +23,11 @@ jobs:
           BRANCH_NAME="${GITHUB_HEAD_REF}"
           echo "Branch name: $BRANCH_NAME"
 
+          if [[ "$BRANCH_NAME" == "main" ]]; then
+            echo "ℹ️ Source branch is main inside sync of branch, skipping name check."
+            exit 0
+          fi
+
           if [[ "$BRANCH_NAME" =~ ^(bugfix|hotfix|test|feature)/EDKUI-[0-9]+/[a-zA-Z0-9_-]+$ ]]; then
             echo "✅ Branch name is valid."
             exit 0
