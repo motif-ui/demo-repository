@@ -1,4 +1,4 @@
-name: push.yml
+name: Main Push
 
 on:
   push:

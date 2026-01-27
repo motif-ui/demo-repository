@@ -1,4 +1,4 @@
-name: release.yml
+name: NPM Release
 on:
   workflow_dispatch:
 
@@ -9,8 +9,7 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
-    environment: production
-    if: github.event_name == 'workflow_dispatch'
+    environment: release
 
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
