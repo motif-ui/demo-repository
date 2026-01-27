@@ -1,4 +1,4 @@
-name: pull_request.yml
+name: pull_request
 on:
   pull_request:
 
