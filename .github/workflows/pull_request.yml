@@ -22,7 +22,7 @@ jobs:
     name: Install dependencies
     runs-on: ubuntu-latest
     needs: prepare
-    steps:
+    steps: &setup_steps
       - uses: actions/checkout@v4
       - name: Setup Node & Cache
         uses: actions/setup-node@v4
@@ -37,14 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: install
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node & Cache
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24.11.0
-          cache: 'npm'
-      - name: Install deps
-        run: npm ci
+      - uses: *setup_steps
       - name: Build library
         run: npm run build:lib
       - name: Upload dist artifact
@@ -58,14 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node & Cache
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24.11.0
-          cache: 'npm'
-      - name: Install deps
-        run: npm ci
+      - uses: *setup_steps
       - name: Lint & type check
         run: |
           npm run lint
@@ -78,13 +64,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build, test]
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node & Cache
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24.11.0
-          cache: 'npm'
-      - name: Install deps
-        run: npm ci
+      - uses: *setup_steps
       - name: Build storybook
         run: npm run build:storybook
