@@ -3,122 +3,63 @@ on:
   pull_request:
 
 jobs:
-  ###########################
-  ######## prepare ##########
-  ###########################
   prepare:
     name: Check Branch name
     runs-on: ubuntu-latest
-
     steps:
       - name: Check branch name
         shell: bash
         run: |
           BRANCH_NAME="${GITHUB_HEAD_REF}"
-          echo "Branch name: $BRANCH_NAME"
-
-          if [[ "$BRANCH_NAME" == "main" ]]; then
-            echo "ℹ️ Source branch is main inside sync of branch, skipping name check."
-            exit 0
-          fi
-
-          if [[ "$BRANCH_NAME" =~ ^(bugfix|hotfix|test|feature)/EDKUI-[0-9]+/[a-zA-Z0-9_-]+$ ]]; then
+          if [[ "$BRANCH_NAME" =~ ^(bugfix|hotfix|test|feature)/EDKUI-[0-9]+/[a-zA-Z0-9_-]+$ || "$BRANCH_NAME" == "main" ]]; then
             echo "✅ Branch name is valid."
-            exit 0
           else
             echo "❌ Invalid branch name: $BRANCH_NAME"
             exit 1
           fi
-  
-
-  ###########################
-  ######## install ##########
-  ###########################
   install:
     name: Install dependencies
     runs-on: ubuntu-latest
-    container: node:24.11.0
     needs: prepare
-
     steps:
       - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-node-deps
 
-      - name: Cache dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            node_modules
-            .npm
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-
-      - name: Install deps
-        run: |
-          npm install --cache .npm --prefer-offline
-
-  ###########################
-  ######## build ############
-  ###########################
   build:
     name: Build
     runs-on: ubuntu-latest
-    container: node:24.11.0
     needs: install
-
     steps:
       - uses: actions/checkout@v4
-
-      - name: Install deps
-        run: |
-          npm install --cache .npm --prefer-offline
-
+      - uses: ./.github/actions/setup-node-deps
       - name: Build library
         run: npm run build:lib
-
       - name: Upload dist artifact
         uses: actions/upload-artifact@v4
         with:
           name: dist
           path: dist/
 
-  ###########################
-  ######## test #############
-  ###########################
   test:
     name: Lint & Unit Tests
     runs-on: ubuntu-latest
-    container: node:24.11.0
     needs: build
-
     steps:
       - uses: actions/checkout@v4
-
-      - name: Install deps
-        run: |
-          npm install --cache .npm --prefer-offline
-
+      - uses: ./.github/actions/setup-node-deps
       - name: Lint & type check
         run: |
           npm run lint
           npm run type-check
-
       - name: Unit tests
         run: npm run test:ci
 
-  ###########################
-  ###### deploy (test) ######
-  ###########################
   deploy-to-build:
     name: Deploy to Build (storybook)
     runs-on: ubuntu-latest
-    container: node:24.11.0
     needs: [build, test]
-
     steps:
       - uses: actions/checkout@v4
-
-      - name: Install deps
-        run: |
-          npm install --cache .npm --prefer-offline
-
+      - uses: ./.github/actions/setup-node-deps
       - name: Build storybook
         run: npm run build:storybook
