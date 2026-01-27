@@ -3,6 +3,16 @@ on:
   pull_request:
 
 jobs:
+  x-common-steps: &setup_steps
+    - uses: actions/checkout@v4
+    - name: Setup Node & Cache
+      uses: actions/setup-node@v4
+      with:
+        node-version: 24.11.0
+        cache: 'npm'
+    - name: Install deps
+      run: npm ci
+
   prepare:
     name: Check Branch name
     runs-on: ubuntu-latest
@@ -22,15 +32,7 @@ jobs:
     name: Install dependencies
     runs-on: ubuntu-latest
     needs: prepare
-    steps: &setup_steps
-      - uses: actions/checkout@v4
-      - name: Setup Node & Cache
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24.11.0
-          cache: 'npm'
-      - name: Install deps
-        run: npm ci
+    steps: *setup_steps
 
   build:
     name: Build
