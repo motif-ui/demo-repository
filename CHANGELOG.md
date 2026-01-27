@@ -1,3 +1,18 @@
+## [1.0.11](https://github.com/motif-ui/demo-repository/compare/v1.0.10...v1.0.11) (2026-01-27)
+
+
+### Bug Fixes
+
+* cached yml file conf ([#64](https://github.com/motif-ui/demo-repository/issues/64)) ([c3aba43](https://github.com/motif-ui/demo-repository/commit/c3aba4355a00c83bef515e3b9fe669d3e6cf4e5d))
+* cached yml file conf ([#65](https://github.com/motif-ui/demo-repository/issues/65)) ([fbbbb8e](https://github.com/motif-ui/demo-repository/commit/fbbbb8e51109510288de52665c7de1cf072034eb))
+* new pipeline conf ([#57](https://github.com/motif-ui/demo-repository/issues/57)) ([8ae1700](https://github.com/motif-ui/demo-repository/commit/8ae1700365d6c98615818b2b8c2f3e4292d81fd0))
+* new pipeline conf ([#58](https://github.com/motif-ui/demo-repository/issues/58)) ([4a9d418](https://github.com/motif-ui/demo-repository/commit/4a9d4180f6279c9e76b6726f1d6382c521ac8cd4))
+* new pipeline conf ([#59](https://github.com/motif-ui/demo-repository/issues/59)) ([0ae1772](https://github.com/motif-ui/demo-repository/commit/0ae1772a3e266c734bd58f9745b2fdf72c8e5fd3))
+* new pipeline conf ([#60](https://github.com/motif-ui/demo-repository/issues/60)) ([dc9b4aa](https://github.com/motif-ui/demo-repository/commit/dc9b4aa54652f5155f2e7f4f11e20fedc646884c))
+* new pipeline conf ([#61](https://github.com/motif-ui/demo-repository/issues/61)) ([a15481a](https://github.com/motif-ui/demo-repository/commit/a15481a25d12437eed89d9a838affd3288e02c7a))
+* new pipeline conf with containers ([#56](https://github.com/motif-ui/demo-repository/issues/56)) ([e784371](https://github.com/motif-ui/demo-repository/commit/e7843715b9516cd9545e67dcd8855bd1f527a00d))
+* seperated yml file configuration ([#62](https://github.com/motif-ui/demo-repository/issues/62)) ([c6721f6](https://github.com/motif-ui/demo-repository/commit/c6721f6b1cf246e2ddf30b2f2501df2d13d00dcd))
+
 ## [1.0.10](https://github.com/motif-ui/demo-repository/compare/v1.0.9...v1.0.10) (2026-01-23)
 
 
