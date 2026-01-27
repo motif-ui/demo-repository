@@ -7,28 +7,18 @@ on:
 
 jobs:
 
-  ###########################
-  ######## install ##########
-  ###########################
   install:
     name: Install dependencies
     runs-on: ubuntu-latest
-    container: node:24.11.0
-
     steps:
       - uses: actions/checkout@v4
-
-      - name: Cache dependencies
-        uses: actions/cache@v4
+      - name: Setup Node & Cache
+        uses: actions/setup-node@v4
         with:
-          path: |
-            node_modules
-            .npm
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-
+          node-version: 24.11.0
+          cache: 'npm'
       - name: Install deps
-        run: |
-          npm install --cache .npm --prefer-offline
+        run: npm ci
 
   ###########################
   ######## build ############
@@ -36,15 +26,18 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    container: node:24.11.0
     needs: install
 
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup Node & Cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.11.0
+          cache: 'npm'
       - name: Install deps
-        run: |
-          npm install --cache .npm --prefer-offline
+        run: npm ci
 
       - name: Build library
         run: npm run build:lib
@@ -61,15 +54,18 @@ jobs:
   test:
     name: Lint & Unit Tests
     runs-on: ubuntu-latest
-    container: node:24.11.0
     needs: build
 
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup Node & Cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.11.0
+          cache: 'npm'
       - name: Install deps
-        run: |
-          npm install --cache .npm --prefer-offline
+        run: npm ci
 
       - name: Lint & type check
         run: |
@@ -85,15 +81,17 @@ jobs:
   deploy-to-build:
     name: Deploy to Build (storybook)
     runs-on: ubuntu-latest
-    container: node:24.11.0
     needs: [ build, test ]
 
     steps:
       - uses: actions/checkout@v4
-
+      - name: Setup Node & Cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.11.0
+          cache: 'npm'
       - name: Install deps
-        run: |
-          npm install --cache .npm --prefer-offline
+        run: npm ci
 
       - name: Build storybook
         run: npm run build:storybook
@@ -105,7 +103,6 @@ jobs:
     name: Chromatic Publish
     runs-on: ubuntu-latest
     environment: production
-    container: node:24.11.0
     needs: [ build, test ]
     continue-on-error: true
 
@@ -114,12 +111,16 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup Node & Cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.11.0
+          cache: 'npm'
+      - name: Install deps
+        run: npm ci
+
       - name: Mark repo as safe for git
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
-
-      - name: Install deps
-        run: |
-          npm install --cache .npm --prefer-offline
 
       - name: Chromatic publish
         uses: chromaui/action@latest

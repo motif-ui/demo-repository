@@ -10,7 +10,6 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     environment: production
-    container: node:24.11.0
     if: github.event_name == 'workflow_dispatch'
 
     env:
@@ -24,13 +23,17 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup Node & Cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.11.0
+          cache: 'npm'
+      - name: Install deps
+        run: npm ci
+
       - name: Prepare npmrc for npm publish
         run: |
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-
-      - name: Install deps
-        run: |
-          npm install --cache .npm --prefer-offline
 
       - name: Semantic Release
         run: npx semantic-release

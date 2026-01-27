@@ -1,14 +1,15 @@
-name: action.yml
-description: 'Checkouts code, sets up node with cache and installs'
+name: setup-node-deps
+author: atakanbayrak
+description: setup-node-deps
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v4
     - name: Setup Node & Cache
       uses: actions/setup-node@v4
       with:
         node-version: 24.11.0
         cache: 'npm'
-    - name: Install deps
       shell: bash
+    - name: Install deps
       run: npm ci
+      shell: bash

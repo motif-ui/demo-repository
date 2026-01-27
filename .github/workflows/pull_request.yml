@@ -23,13 +23,7 @@ jobs:
     needs: prepare
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Node & Cache
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24.11.0
-          cache: 'npm'
-      - name: Install deps
-        run: npm ci
+      - uses: ./.github/actions/setup-node-deps
 
   build:
     name: Build
@@ -37,13 +31,7 @@ jobs:
     needs: install
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Node & Cache
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24.11.0
-          cache: 'npm'
-      - name: Install deps
-        run: npm ci
+      - uses: ./.github/actions/setup-node-deps
       - name: Build library
         run: npm run build:lib
       - name: Upload dist artifact
@@ -58,13 +46,7 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Node & Cache
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24.11.0
-          cache: 'npm'
-      - name: Install deps
-        run: npm ci
+      - uses: ./.github/actions/setup-node-deps
       - name: Lint & type check
         run: |
           npm run lint
@@ -78,12 +60,6 @@ jobs:
     needs: [build, test]
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Node & Cache
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24.11.0
-          cache: 'npm'
-      - name: Install deps
-        run: npm ci
+      - uses: ./.github/actions/setup-node-deps
       - name: Build storybook
         run: npm run build:storybook
