@@ -3,7 +3,7 @@ on:
   pull_request:
 
 jobs:
-  x-common-steps: &setup_steps
+  job1: &setup_steps
     - uses: actions/checkout@v4
     - name: Setup Node & Cache
       uses: actions/setup-node@v4
