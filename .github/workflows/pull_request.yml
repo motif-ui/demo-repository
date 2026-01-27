@@ -22,14 +22,12 @@ jobs:
     name: Install dependencies
     runs-on: ubuntu-latest
     needs: prepare
-    container:
-      image: node:24.11.0
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node & Cache
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: 24.11.0
           cache: 'npm'
       - name: Install deps
         run: npm ci
@@ -38,17 +36,15 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     needs: install
-    container:
-      image: node:24.11.0
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node & Cache
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: 24.11.0
           cache: 'npm'
       - name: Install deps
-        run: npm ci # Cache sayesinde saniyeler sürecek
+        run: npm ci
       - name: Build library
         run: npm run build:lib
       - name: Upload dist artifact
@@ -61,14 +57,12 @@ jobs:
     name: Lint & Unit Tests
     runs-on: ubuntu-latest
     needs: build
-    container:
-      image: node:24.11.0
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node & Cache
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: 24.11.0
           cache: 'npm'
       - name: Install deps
         run: npm ci
@@ -83,14 +77,12 @@ jobs:
     name: Deploy to Build (storybook)
     runs-on: ubuntu-latest
     needs: [build, test]
-    container:
-      image: node:24.11.0
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node & Cache
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: 24.11.0
           cache: 'npm'
       - name: Install deps
         run: npm ci
