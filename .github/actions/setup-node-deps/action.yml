@@ -9,7 +9,6 @@ runs:
       with:
         node-version: 24.11.0
         cache: 'npm'
-      shell: bash
     - name: Install deps
       run: npm ci
       shell: bash
