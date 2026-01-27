@@ -1,0 +1,36 @@
+name: release.yml
+on:
+  workflow_dispatch:
+
+jobs:
+  ###########################
+  ######## release ##########
+  ###########################
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    environment: production
+    container: node:24.11.0
+    if: github.event_name == 'workflow_dispatch'
+
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      HUSKY: 0
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Prepare npmrc for npm publish
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+
+      - name: Install deps
+        run: |
+          npm install --cache .npm --prefer-offline
+
+      - name: Semantic Release
+        run: npx semantic-release
