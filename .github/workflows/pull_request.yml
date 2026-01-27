@@ -1,4 +1,5 @@
-name: pull_request.yml
+name: pull_request
+
 on:
   pull_request:
 
@@ -18,18 +19,16 @@ jobs:
           echo "Branch name: $BRANCH_NAME"
 
           if [[ "$BRANCH_NAME" == "main" ]]; then
-            echo "ℹ️ Source branch is main inside sync of branch, skipping name check."
+            echo "ℹ️ Source branch is main, skipping name check."
             exit 0
           fi
 
           if [[ "$BRANCH_NAME" =~ ^(bugfix|hotfix|test|feature)/EDKUI-[0-9]+/[a-zA-Z0-9_-]+$ ]]; then
             echo "✅ Branch name is valid."
-            exit 0
           else
             echo "❌ Invalid branch name: $BRANCH_NAME"
             exit 1
           fi
-  
 
   ###########################
   ######## install ##########
@@ -37,23 +36,19 @@ jobs:
   install:
     name: Install dependencies
     runs-on: ubuntu-latest
-    container: node:24.11.0
     needs: prepare
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Cache dependencies
-        uses: actions/cache@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          path: |
-            node_modules
-            .npm
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          node-version: 24.11.0
+          cache: npm
 
       - name: Install deps
-        run: |
-          npm install --cache .npm --prefer-offline
+        run: npm ci
 
   ###########################
   ######## build ############
@@ -61,15 +56,19 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    container: node:24.11.0
     needs: install
 
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.11.0
+          cache: npm
+
       - name: Install deps
-        run: |
-          npm install --cache .npm --prefer-offline
+        run: npm ci
 
       - name: Build library
         run: npm run build:lib
@@ -86,15 +85,19 @@ jobs:
   test:
     name: Lint & Unit Tests
     runs-on: ubuntu-latest
-    container: node:24.11.0
     needs: build
 
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.11.0
+          cache: npm
+
       - name: Install deps
-        run: |
-          npm install --cache .npm --prefer-offline
+        run: npm ci
 
       - name: Lint & type check
         run: |
@@ -110,15 +113,19 @@ jobs:
   deploy-to-build:
     name: Deploy to Build (storybook)
     runs-on: ubuntu-latest
-    container: node:24.11.0
     needs: [build, test]
 
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.11.0
+          cache: npm
+
       - name: Install deps
-        run: |
-          npm install --cache .npm --prefer-offline
+        run: npm ci
 
       - name: Build storybook
         run: npm run build:storybook
