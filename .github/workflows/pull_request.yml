@@ -39,7 +39,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: install
     steps:
-      - *setup_steps
       - name: Build library
         run: npm run build:lib
       - name: Upload dist artifact
@@ -53,7 +52,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - *setup_steps
       - name: Lint & type check
         run: |
           npm run lint
@@ -66,6 +64,5 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build, test]
     steps:
-      - *setup_steps
       - name: Build storybook
         run: npm run build:storybook
