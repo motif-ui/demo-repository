@@ -7,18 +7,15 @@ on:
 
 jobs:
 
+  ###########################
+  ######## install ##########
+  ###########################
   install:
     name: Install dependencies
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Node & Cache
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24.11.0
-          cache: 'npm'
-      - name: Install deps
-        run: npm ci
+      - uses: ./.github/actions/setup-node-deps
 
   ###########################
   ######## build ############
@@ -30,14 +27,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup Node & Cache
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24.11.0
-          cache: 'npm'
-      - name: Install deps
-        run: npm ci
+      - uses: ./.github/actions/setup-node-deps
 
       - name: Build library
         run: npm run build:lib
@@ -58,14 +48,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup Node & Cache
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24.11.0
-          cache: 'npm'
-      - name: Install deps
-        run: npm ci
+      - uses: ./.github/actions/setup-node-deps
 
       - name: Lint & type check
         run: |
@@ -85,13 +68,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Node & Cache
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24.11.0
-          cache: 'npm'
-      - name: Install deps
-        run: npm ci
+      - uses: ./.github/actions/setup-node-deps
 
       - name: Build storybook
         run: npm run build:storybook
@@ -111,13 +88,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Node & Cache
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24.11.0
-          cache: 'npm'
-      - name: Install deps
-        run: npm ci
+      - uses: ./.github/actions/setup-node-deps
 
       - name: Mark repo as safe for git
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"

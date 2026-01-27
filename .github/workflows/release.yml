@@ -23,13 +23,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Node & Cache
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24.11.0
-          cache: 'npm'
-      - name: Install deps
-        run: npm ci
+      - uses: ./.github/actions/setup-node-deps
 
       - name: Prepare npmrc for npm publish
         run: |
