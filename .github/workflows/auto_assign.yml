@@ -1,4 +1,4 @@
-name: Auto Assign PR to Author and Add Reviewers
+name: Auto Assign PR to Author
 
 on:
   pull_request:
