@@ -2,22 +2,21 @@ name: Auto labeling
 
 on:
   issues:
-    types: [opened,reopened]
+    types: [opened, reopened]
   pull_request:
-    types: [opened,reopened]
+    types: [opened, reopened]
 
 permissions:
+  issues: write
+  pull-requests: write
   contents: read
 
 jobs:
   label_issues:
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
     steps:
-      - name: Label issues
+      - name: Label issues and PRs
         uses: andymckay/labeler@1.0.4
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           add-labels: 'needs consideration'
-          # remove-labels: 'Resolution: By Design,Resolution: Cannot Replicate,Resolution: Duplicate,Resolution: Help Wanted,Resolution: Invalid,Resolution: Needs Issue,Resolution: Needs More Information,Resolution: Needs Revision,Resolution: Wontfix'
