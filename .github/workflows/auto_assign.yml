@@ -1,0 +1,15 @@
+name: Auto Assign PR to Author and Add Reviewers
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  assign-and-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign PR to author
+        uses: toshimaru/auto-author-assign@v3.0.1
