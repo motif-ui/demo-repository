@@ -11,5 +11,5 @@ jobs:
   assign-and-review:
     runs-on: ubuntu-latest
     steps:
-      - name: Assign PR to author
+      - name: Auto Assign PR to author
         uses: toshimaru/auto-author-assign@v3.0.1
