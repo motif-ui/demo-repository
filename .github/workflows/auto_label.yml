@@ -1,4 +1,4 @@
-name: Auto labeling
+name: Auto Label
 
 on:
   issues:
@@ -20,3 +20,4 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           add-labels: 'needs consideration'
+          # remove-labels: will be added in advance
