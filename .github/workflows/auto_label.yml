@@ -1,4 +1,4 @@
-name: Auto labeling
+name: Auto Label
 
 on:
   issues:
@@ -15,7 +15,7 @@ jobs:
   label_issues:
     runs-on: ubuntu-latest
     steps:
-      - name: Label issues and PRs
+      - name: Label issue / pull request
         uses: andymckay/labeler@1.0.4
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
