@@ -1,0 +1,36 @@
+name: Check Internal Issue Reference
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  check-issue-reference:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for Internal Issue Number
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prBody = context.payload.pull_request.body || '';
+            const issuePattern = /#EDKUI-\d+/;
+            
+            if (!issuePattern.test(prBody)) {
+              core.setFailed('❌ PR description must include an internal issue reference (e.g., #EDKUI-1288)');
+            
+              // Comment inside PR
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.pull_request.number,
+                body: '⚠️ **Missing Internal Issue Reference**\n\nPlease add an internal issue reference to your PR description in the format `#EDKUI-XXXX`.\n\nExample:\n```\nFix internal issue #EDKUI-1288\n```'
+              });
+            } else {
+              const issueNumber = prBody.match(issuePattern)[0];
+              await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.payload.pull_request.number,
+                  body: `✅ Found internal issue reference: ${issueNumber}`
+                });
+            }
