@@ -31,6 +31,6 @@ jobs:
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: context.payload.pull_request.number,
-                  body: '✅ Found internal issue reference: ${issueNumber}'
+                  body: ✅ Found internal issue reference: ${issueNumber}`
                 });
             }
