@@ -1,6 +1,5 @@
-name: setup-node-deps
-author: atakanbayrak
-description: setup-node-deps
+name: Setup Node Dependencies with Cache
+description: Setting up node and cache mechanism
 runs:
   using: "composite"
   steps:
