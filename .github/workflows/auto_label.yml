@@ -19,4 +19,4 @@ jobs:
         uses: andymckay/labeler@1.0.4
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          add-labels: 'needs consideration'
+          add-labels: 'needs triage'
