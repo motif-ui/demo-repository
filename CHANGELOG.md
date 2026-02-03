@@ -1,3 +1,12 @@
+## [1.0.12](https://github.com/motif-ui/demo-repository/compare/v1.0.11...v1.0.12) (2026-02-03)
+
+
+### Bug Fixes
+
+* auto assign ([#75](https://github.com/motif-ui/demo-repository/issues/75)) ([2ce4a1e](https://github.com/motif-ui/demo-repository/commit/2ce4a1ef93b135a1f4abb69883cb8302aed4d264))
+* auto assign ([#76](https://github.com/motif-ui/demo-repository/issues/76)) ([dc7168d](https://github.com/motif-ui/demo-repository/commit/dc7168d6186dc881d3fd71302da2d6eeb0eeced7))
+* auto labeling ([#68](https://github.com/motif-ui/demo-repository/issues/68)) ([9c0ffde](https://github.com/motif-ui/demo-repository/commit/9c0ffde38d9dd8a50c223c1abbaef631f673bdff))
+
 ## [1.0.11](https://github.com/motif-ui/demo-repository/compare/v1.0.10...v1.0.11) (2026-01-27)
 
 
