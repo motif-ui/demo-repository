@@ -1,3 +1,10 @@
+## [1.0.13](https://github.com/motif-ui/demo-repository/compare/v1.0.12...v1.0.13) (2026-02-03)
+
+
+### Bug Fixes
+
+* auto labeling ([#82](https://github.com/motif-ui/demo-repository/issues/82)) ([5be2cc6](https://github.com/motif-ui/demo-repository/commit/5be2cc6ae0419a5c8df8c1fcad4b2222aa53fd87))
+
 ## [1.0.12](https://github.com/motif-ui/demo-repository/compare/v1.0.11...v1.0.12) (2026-02-03)
 
 
