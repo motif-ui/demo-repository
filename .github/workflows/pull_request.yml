@@ -10,11 +10,10 @@ jobs:
       - name: Check branch name
         shell: bash
         run: |
-          BRANCH_NAME="${GITHUB_HEAD_REF}"
-          if [[ "$BRANCH_NAME" =~ ^(bugfix|hotfix|test|feature)/EDKUI-[0-9]+/[a-zA-Z0-9_-]+$ || "$BRANCH_NAME" == "main" ]]; then
+          if [[ "${GITHUB_HEAD_REF}" =~ ^(bugfix|hotfix|test|feature)/EDKUI-[0-9]+/[a-zA-Z0-9_-]+$ || "${GITHUB_HEAD_REF}" == "main" ]]; then
             echo "✅ Branch name is valid."
           else
-            echo "❌ Invalid branch name: $BRANCH_NAME"
+            echo "❌ Invalid branch name: ${GITHUB_HEAD_REF}"
             exit 1
           fi
   install:
@@ -34,11 +33,6 @@ jobs:
       - uses: ./.github/actions/setup-node-deps
       - name: Build library
         run: npm run build:lib
-      - name: Upload dist artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist/
 
   test:
     name: Lint & Unit Tests
