@@ -6,6 +6,11 @@ on:
 
 jobs:
   check-issue-reference:
+    if: |
+      contains(
+        'atakanbayrak aktasmehmet hatesalp sengulnecmi ZehranurC',
+        github.actor
+      )
     runs-on: ubuntu-latest
     steps:
       - name: Check for Internal Issue Number in PR description
