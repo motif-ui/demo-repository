@@ -1,0 +1,24 @@
+name: Check Internal Issue Reference
+
+on:
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  check-issue-reference:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for Internal Issue Number in PR description
+        shell: bash
+        run: |
+          PR_BODY="${{ github.event.pull_request.body }}"
+
+          echo "🔍 Checking PR description for internal issue reference..."
+
+          if echo "$PR_BODY" | grep -Eq "#EDKUI-[0-9]+"; then
+            ISSUE=$(echo "$PR_BODY" | grep -Eo "#EDKUI-[0-9]+")
+            echo "✅ Found internal issue reference: $ISSUE"
+          else
+            echo "❌ PR description must include an internal issue reference (e.g., #EDKUI-1288)"
+            exit 1
+          fi
