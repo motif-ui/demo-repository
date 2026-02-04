@@ -2,7 +2,7 @@ name: Check Internal Issue Reference
 
 on:
   pull_request:
-    types: [opened, edited, labeled, unlabeled]
+    types: [labeled, unlabeled]
 
 jobs:
   check-issue-reference:
