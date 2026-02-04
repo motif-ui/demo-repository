@@ -20,5 +20,3 @@ jobs:
   ci:
     needs: prepare
     uses: ./.github/workflows/ci-node.yml
-    secrets:
-      CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
