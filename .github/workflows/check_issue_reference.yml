@@ -2,10 +2,15 @@ name: Check Internal Issue Reference
 
 on:
   pull_request:
-    types: [opened, edited]
+    types: [labeled, opened, edited]
 
 jobs:
   check-issue-reference:
+    if: |
+      contains(
+        github.event.pull_request.labels.*.name,
+        'internal'
+      )
     runs-on: ubuntu-latest
     steps:
       - name: Check for Internal Issue Number in PR description
