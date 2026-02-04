@@ -41,6 +41,6 @@ jobs:
               labels: [label],
             });
 
-      - name: Check Internal Issue Reference
+      - name: Check Internal Reference
         if: contains(github.event.pull_request.labels.*.name, 'internal')
         uses: ./.github/actions/check-internal-issue
