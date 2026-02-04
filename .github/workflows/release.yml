@@ -3,16 +3,6 @@ on:
   workflow_dispatch:
 
 jobs:
-
-  guard:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Allow only main branch
-        run: |
-          if [ "${GITHUB_REF_NAME}" != "main" ]; then
-            echo "❌ This workflow can only be run on main branch."
-            exit 1
-          fi
   ###########################
   ######## release ##########
   ###########################
