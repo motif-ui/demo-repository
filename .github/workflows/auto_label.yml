@@ -41,6 +41,9 @@ jobs:
               labels: [label],
             });
 
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Check Internal Issue Reference
-        if: contains(github.event.pull_request.labels.*.name, 'internal')
+        if: contains(github.event.pull_request.labels.*.name, 'needs triage')
         uses: ./.github/actions/check-internal-issue
