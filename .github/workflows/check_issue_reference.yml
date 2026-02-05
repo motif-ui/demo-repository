@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Check internal issue reference for core team PRs
         uses: actions/github-script@v7
+        env:
+          CORE_TEAM: ${{ vars.CORE_TEAM }}
         with:
           script: |
             const coreTeamStr = process.env.CORE_TEAM || '';
@@ -36,5 +38,3 @@ jobs:
             } else {
               core.setFailed('❌ Core team PRs must include an internal issue reference (e.g., #EDKUI-1288)');
             }
-        env:
-          CORE_TEAM: ${{ vars.CORE_TEAM }}
