@@ -19,7 +19,8 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const coreTeamRaw = process.env.CORE_TEAM;
+            const coreTeamRaw = '${{ vars.CORE_TEAM }}';
+            console.log(coreTeamRaw);
             const coreTeam = coreTeamRaw
               .split(',')
               .map(u => u.trim());
