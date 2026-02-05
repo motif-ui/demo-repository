@@ -9,33 +9,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check internal issue reference for core team PRs
-        shell: bash
-        run: |
-          CORE_TEAM=("atakanbayrak" "aktasmehmet" "hatesalp" "sengulnecmi" "ZehranurC")
-          ACTOR="${{ github.actor }}"
-          PR_BODY="${{ github.event.pull_request.body }}"
+        uses: actions/github-script@v7
+        env:
+          CORE_TEAM: ${{ vars.CORE_TEAM }}
+        with:
+          script: |
+            const coreTeamStr = process.env.CORE_TEAM || '';
+            const coreTeam = coreTeamStr.split(',').map(name => name.trim());
+            const actor = context.actor;
+            const prBody = context.payload.pull_request.body || '';
 
-          echo "👤 PR opened by: $ACTOR"
+            core.info(`👤 PR opened by: ${actor}`);
 
-          IS_CORE=false
-          for member in "${CORE_TEAM[@]}"; do
-            if [[ "$member" == "$ACTOR" ]]; then
-              IS_CORE=true
-              break
-            fi
-          done
+            const isInternal = coreTeam.includes(actor);
 
-          if [[ "$IS_CORE" != "true" ]]; then
-            echo "ℹ️ Actor is not in core team. Skipping internal issue check."
-            exit 0
-          fi
+            if (!isInternal) {
+              core.info('ℹ️ Actor is not in core team. Skipping internal issue check.');
+              return;
+            }
 
-          echo "🔍 Actor is core team. Checking PR description..."
+            core.info('🔍 Actor is core team. Checking PR description...');
 
-          if echo "$PR_BODY" | grep -Eq "#EDKUI-[0-9]+"; then
-            ISSUE=$(echo "$PR_BODY" | grep -Eo "#EDKUI-[0-9]+")
-            echo "✅ Found internal issue reference: $ISSUE"
-          else
-            echo "❌ Core team PRs must include an internal issue reference (e.g., #EDKUI-1288)"
-            exit 1
-          fi
+            const issuePattern = /#EDKUI-\d+/;
+            const match = prBody.match(issuePattern);
+
+            if (match) {
+              core.info(`✅ Found internal issue reference: ${match[0]}`);
+            } else {
+              core.setFailed('❌ Core team PRs must include an internal issue reference (e.g., #EDKUI-1288)');
+            }
