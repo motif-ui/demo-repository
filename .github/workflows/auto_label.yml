@@ -17,8 +17,6 @@ jobs:
     steps:
       - name: Auto label by author
         uses: actions/github-script@v7
-        env:
-          CORE_TEAM: ${{ env.CORE_TEAM }}
         with:
           script: |
               console.log('CORE_TEAM raw:', JSON.stringify(process.env.CORE_TEAM));
