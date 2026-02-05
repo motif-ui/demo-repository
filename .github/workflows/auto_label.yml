@@ -19,7 +19,10 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const coreTeam = ['atakanbayrak', 'aktasmehmet', 'hatesalp', 'sengulnecmi', 'ZehranurC'];
+            const coreTeam = process.env.CORE_TEAM
+              .split(',')
+              .map(u => u.trim());
+            
             const actor = context.actor;
 
             const isInternal = coreTeam.includes(actor);
