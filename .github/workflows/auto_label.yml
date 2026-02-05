@@ -17,14 +17,18 @@ jobs:
     steps:
       - name: Auto label by author
         uses: actions/github-script@v7
+        env:
+          CORE_TEAM: ${{ vars.CORE_TEAM }}
         with:
           script: |
-            const coreTeam = ['atakanbayrak', 'aktasmehmet', 'hatesalp', 'sengulnecmi', 'ZehranurC'];
+            const coreTeamStr = process.env.CORE_TEAM || '';
+            const coreTeam = coreTeamStr.split(',').map(name => name.trim());
             const actor = context.actor;
 
             const isInternal = coreTeam.includes(actor);
             const label = isInternal ? 'internal' : 'needs triage';
 
+            core.info(`Core Team: ${coreTeam.join(', ')}`);
             core.info(`Actor: ${actor}`);
             core.info(`Internal: ${isInternal}`);
             core.info(`Applying label: ${label}`);
