@@ -1,0 +1,13 @@
+name: virus.yml
+on:
+  pull_request:
+
+jobs:
+  check-issue-reference:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check internal issue reference for core team PRs
+        uses: actions/github-script@v7
+        with:
+          script: |
+            echo "Atakan"
