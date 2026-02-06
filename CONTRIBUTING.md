@@ -66,15 +66,14 @@ Skipping this step may result in immediate rejection.
 
 All branches **must** follow this format:
 
-`feature/PROJECT-<number>/<short-description>`
-`bugfix/PROJECT-<number>/<short-description>`
-`hotfix/PROJECT-<number>/<short-description>`
+- `feature/PROJECT-<number>/<short-description>`
+- `bugfix/PROJECT-<number>/<short-description>`
+- `hotfix/PROJECT-<number>/<short-description>`
 
 Examples:
 
-`feature/EDKUI-123/add-date-picker`
-`bugfix/EDKUI-456/fix-modal-close`
-
+- `feature/EDKUI-123/add-date-picker`
+- `bugfix/EDKUI-456/fix-modal-close`
 
 Branches that do not follow this naming convention will be rejected.
 
@@ -92,7 +91,6 @@ Branches that do not follow this naming convention will be rejected.
 Good example:
 
 fix(modal): prevent closing when async submit fails
-
 
 ---
 
