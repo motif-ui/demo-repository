@@ -6,14 +6,29 @@ on:
       - '.github/workflows/**'
 
 permissions:
+  pull-requests: read
   contents: none
-  pull-requests: none
 
 jobs:
   check-workflow-changes:
     runs-on: ubuntu-latest
     steps:
-      - name: Fail if workflow files changed
-        run: |
-          echo "🚫 Workflow files cannot be changed!"
-          exit 1
+      - name: Check if actor is in core team
+        uses: actions/github-script@v7
+        env:
+          CORE_TEAM: ${{ vars.CORE_TEAM }}
+        with:
+          script: |
+            const coreTeamStr = process.env.CORE_TEAM || '';
+            const coreTeam = coreTeamStr.split(',').map(name => name.trim());
+            const actor = context.actor;
+
+            core.info(`👤 PR opened by: ${actor}`);
+
+            const isInternal = coreTeam.includes(actor);
+
+            if (isInternal) {
+              core.info('✅ Actor is in core team. Allowing workflow changes.');
+            } else {
+              core.setFailed(`❌ Access Denied: ${actor} is not allowed to change workflow files. Only core team members can do this.`);
+            }
