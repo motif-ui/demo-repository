@@ -1,0 +1,15 @@
+name: Workflow Protection
+
+on:
+  pull_request_target:
+    paths:
+      - '.github/workflows/**'
+
+jobs:
+  check-workflow-changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail if workflow files changed
+        run: |
+          echo "🚫 Workflow files cannot be changed!"
+          exit 1
