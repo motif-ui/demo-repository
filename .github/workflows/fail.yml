@@ -5,7 +5,6 @@ on:
     paths:
       - '.github/workflows/**'
 
-# ⭐ GÜVENLİK: actor'ü kontrol etmek için read izni gerekli
 permissions:
   pull-requests: read
   contents: none
