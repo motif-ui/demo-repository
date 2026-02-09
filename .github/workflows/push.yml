@@ -21,7 +21,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: ./.github/actions/setup-node-deps@main
+      - uses: ./.github/actions/setup-node-deps
 
       - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
