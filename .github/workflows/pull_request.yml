@@ -7,4 +7,4 @@ jobs:
   ci:
     permissions:
       contents: read
-    uses: demo-repository/.github/workflows/ci-node.yml@main
+    uses: ./.github/workflows/ci-node.yml@main
