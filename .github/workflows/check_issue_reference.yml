@@ -4,6 +4,10 @@ on:
   pull_request:
     types: [opened, edited, reopened]
 
+permissions:
+  pull-requests: read
+  contents: none
+
 jobs:
   check-issue-reference:
     runs-on: ubuntu-latest
