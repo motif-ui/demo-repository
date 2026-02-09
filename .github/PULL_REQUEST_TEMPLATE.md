@@ -36,6 +36,3 @@ Please select options that are relevant
 Closes #(issue number)
 
 ---
-
-**Additional Notes:**
-<!-- Add any additional context about the PR here -->
