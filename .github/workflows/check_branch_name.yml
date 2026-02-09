@@ -1,6 +1,11 @@
 name: Check Branch Name
+
 on:
   pull_request_target:
+
+permissions:
+  pull-requests: read
+  contents: none
 
 jobs:
   prepare:
