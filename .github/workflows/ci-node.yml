@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: 'false'
       - uses: ./.github/actions/setup-node-deps
 
   build:
@@ -20,6 +22,8 @@ jobs:
     needs: install
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: 'false'
       - uses: ./.github/actions/setup-node-deps
       - run: npm run build:lib
 
@@ -29,6 +33,8 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: 'false'
       - uses: ./.github/actions/setup-node-deps
       - run: |
           npm run lint
