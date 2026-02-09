@@ -34,5 +34,3 @@ Please select options that are relevant
 
 ## Related Issues (If internal)
 Closes #(issue number)
-
----
