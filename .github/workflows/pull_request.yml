@@ -8,4 +8,4 @@ jobs:
     name: Main based pull request
     permissions:
       contents: read
-    uses: demo-repository/.github/workflows/ci-node.yml@main
+    uses: demo-repository/.github/workflows/ci-node.yml
