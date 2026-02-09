@@ -1,22 +1,10 @@
 name: Pull Request
 
 on:
-  pull_request_target:
+  pull_request:
 
 jobs:
-  prepare:
-    name: Check Branch name
-    runs-on: ubuntu-latest
-    steps:
-      - shell: bash
-        run: |
-          if [[ "${GITHUB_HEAD_REF}" =~ ^(bugfix|hotfix|test|feature)/EDKUI-[0-9]+/[a-zA-Z0-9_-]+$ || "${GITHUB_HEAD_REF}" == "main" ]]; then
-            echo "✅ Branch name is valid."
-          else
-            echo "❌ Invalid branch name: ${GITHUB_HEAD_REF}"
-            exit 1
-          fi
-
   ci:
-    needs: prepare
-    uses: ./.github/workflows/ci-node.yml
+    permissions:
+      contents: read
+    uses: demo-repository/.github/workflows/ci-node.yml@main
