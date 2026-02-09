@@ -11,6 +11,5 @@ jobs:
     steps:
       - name: Fail if workflow files changed
         run: |
-          echo "❌ Workflow dosyalarında değişiklik tespit edildi!"
-          echo "🚫 .github/workflows/ altındaki dosyalar değiştirilemez!"
+          echo "🚫 Workflow files cannot be changed!"
           exit 1
