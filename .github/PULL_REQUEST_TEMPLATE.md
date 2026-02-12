@@ -1,21 +1,3 @@
-## Description
-Please describe your changes and how this PR provides a solution
-
-## Screenshots / Videos
-Add screenshots or videos showing the before and after state of your changes
-
-**BEFORE**
-[image/video]
-
-**AFTER**
-[image/video]
-
-## Checklist
-- [ ] I have performed a self-review of my own code
-- [ ] My changes generate no new warnings or errors
-- [ ] New and existing unit tests pass locally with my changes
-- [ ] I have checked my code follows the project's code style guidelines
-
 ## Type of Change
 Please select options that are relevant
 
@@ -27,10 +9,13 @@ Please select options that are relevant
 - [ ] Code refactoring
 - [ ] Dependencies update
 
-**Test Configuration**:
-* Operating System:
-* Browser (if applicable):
-* Node version (if applicable):
+## Description
+Please describe your changes and how this PR provides a solution
+
+## Checklist
+- [ ] Add or update documentation reflecting your changes
+- [ ] I have checked my code follows the project's code style guidelines
+- [ ] I have added test cases if necessary 
 
 ## Related Issues (If internal)
 Closes #(issue number)
