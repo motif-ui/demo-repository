@@ -1,7 +1,7 @@
 name: "Feature request"
-description: Create a feature request for motif/ui
-title: '[feat]: '
-labels: ['area: request']
+description: Create a feature request for motif-ui
+title: '[feature]: '
+labels: ['feature request']
 body:
   - type: markdown
     attributes:
