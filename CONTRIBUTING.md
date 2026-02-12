@@ -24,12 +24,9 @@ Please follow this process to ensure your contribution is considered.
 To prepare your environment for development:
 
 1.  **Fork** the repository to your own GitHub account.
-2.  **Clone** your fork locally:
-    `git clone https://github.com/YOUR_USERNAME/demo-repository.git`
-3.  **Install** dependencies:
-    `npm install`
+2.  **Clone** your fork locally
+3.  **Install** dependencies
 4.  **Run** the project locally to ensure everything works:
-    `npm run dev`
 
 ---
 
@@ -103,7 +100,7 @@ We follow the **Conventional Commits** specification.
 - Avoid meaningless messages such as: `fix`, `update`, `wip`.
 
 **Good example:**
-`fix(modal): prevent closing when async submit fails`
+`fix: prevent closing when async submit fails`
 
 ---
 
