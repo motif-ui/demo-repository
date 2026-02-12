@@ -1,3 +1,11 @@
+## [1.0.19](https://github.com/motif-ui/demo-repository/compare/v1.0.18...v1.0.19) (2026-02-12)
+
+
+### Bug Fixes
+
+* pr template refinement ([#162](https://github.com/motif-ui/demo-repository/issues/162)) ([5fa8e83](https://github.com/motif-ui/demo-repository/commit/5fa8e83057f81994f7e8be2951af115e5c7f0c27))
+* storybook deployment process included ([5f1d94b](https://github.com/motif-ui/demo-repository/commit/5f1d94bfe5d2b31f05d49c2aabde3c3526b15283))
+
 ## [1.0.18](https://github.com/motif-ui/demo-repository/compare/v1.0.17...v1.0.18) (2026-02-09)
 
 
