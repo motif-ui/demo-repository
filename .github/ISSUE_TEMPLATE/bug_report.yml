@@ -1,18 +1,17 @@
-name: "Bug report"
+name: "Bug Report"
 description: Report an issue
-title: '[bug]: '
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        ### Thanks for taking the time to create a bug report. Please search open/closed issues before submitting, as the issue may have already been reported/addressed.
+        *Thank you for taking your time to create a bug report. Please search open/closed issues before submitting, as the issue may have already been reported/addressed.*
 
   - type: textarea
     id: bug-description
     attributes:
       label: Describe the bug
-      description: A clear and concise description of what the bug is. If you intend to submit a PR for this issue, tell us how in the description. Thanks!
+      description: A clear and concise description of what the bug is. If you intend to submit a PR for this issue, tell us how in the description. Thanks 🙏
       placeholder: Bug description
     validations:
       required: true
@@ -20,17 +19,16 @@ body:
   - type: input
     id: components-affected
     attributes:
-      label: Affected component/components
-      description: Which motif-ui components are affected?
-      placeholder: ex. Button, Checkbox...
+      label: Affected component(s)
+      description: Which components are affected?
+      placeholder: Button, Checkbox...
     validations:
       required: true
 
   - type: textarea
     id: reproduction
     attributes:
-      label: How to reproduce bug behaviour
-      description:  A step-by-step description of how to reproduce the bug.
+      label: Steps to reproduce
       placeholder: |
         1. Go to '...'
         2. Click on '....'
@@ -39,29 +37,30 @@ body:
       required: true
 
   - type: textarea
+    id: system-info
+    attributes:
+      label: Environment
+      description: Information about your environment, such as operating system, browser version, and any relevant software versions.
+      value: |
+        - OS:
+        - Browser:
+        - Npm/Node:
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
     id: logs
     attributes:
       label: Logs
-      description: "Please include browser console and server logs around the time this bug occurred. Please try not to insert an image but copy paste the log text."
+      description: Console/server logs around the time this bug occurred.
       render: bash
-
-  - type: textarea
-    id: system-info
-    attributes:
-      label: System Info
-      description: Information about browsers and system.
-      render: bash
-      placeholder: System, Binaries, Browsers
-    validations:
-      required: true
 
   - type: checkboxes
     id: terms
     attributes:
       label: Before submitting
-      description: By submitting this issue, you agree to follow [Contributing Guidelines](https://github.com/motif-ui/demo-repository/blob/main/CONTRIBUTING.md).
+      description: By submitting this issue, you agree to follow the [Contribution Guide](https://github.com/motif-ui/demo-repository/blob/main/.github/CONTRIBUTING.md).
       options:
-        - label: I've made research efforts and searched the documentation
-          required: true
-        - label: I've searched for existing issues
+        - label: Accept
           required: true
