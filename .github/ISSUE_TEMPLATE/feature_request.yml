@@ -1,6 +1,6 @@
 name: "Feature Request"
 description: Request a new feature to improve Motif UI
-labels: ['new feature']
+labels: ['feature']
 body:
   - type: markdown
     attributes:
