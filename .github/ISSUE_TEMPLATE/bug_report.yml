@@ -55,12 +55,3 @@ body:
       label: Logs
       description: Console/server logs around the time this bug occurred.
       render: bash
-
-  - type: checkboxes
-    id: terms
-    attributes:
-      label: Before submitting
-      description: By submitting this issue, you agree to follow the [Contribution Guide](https://github.com/motif-ui/demo-repository/blob/main/.github/CONTRIBUTING.md).
-      options:
-        - label: Accept
-          required: true
