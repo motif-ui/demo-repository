@@ -1,21 +1,32 @@
-## Type of Change
-Please select options that are relevant
-
-- [ ] Bug fix (non-breaking change which fixes an issue)
-- [ ] New feature (non-breaking change which adds functionality)
-- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
-- [ ] This change requires a documentation update
-- [ ] Performance improvement
-- [ ] Code refactoring
-- [ ] Dependencies update
-
 ## Description
-Please describe your changes and how this PR provides a solution
+<!-- Please describe your changes and how this PR provides a solution -->
+
+## Type of Change
+<!-- Please select options that are relevant -->
+
+- [ ] 🆕 New Component
+- [ ] ✨ Feature / Enhancement
+- [ ] 🐛 Bug Fix
+- [ ] 💥 Breaking Change
+- [ ] 📦 Build / Dependency / Docs Update
+- [ ] 🧹 Code Refactoring
+
+## Screenshots / Preview
+
+<!-- Before/After screenshots/recordings or links if applicable -->
 
 ## Checklist
-- [ ] Add or update documentation reflecting your changes
-- [ ] I have checked my code follows the project's code style guidelines
-- [ ] I have added test cases if necessary 
 
-## Related Issues (If internal)
-Closes #(issue number)
+- [ ] Self-reviewed, no leftover logs or debug code
+- [ ] Uses design tokens — no hardcoded style values
+- [ ] Accessible (keyboard nav, ARIA, contrast)
+- [ ] Tests added/updated and passing
+- [ ] Storybook story added/updated
+
+## How to Test
+
+<!-- Brief steps for reviewers -->
+
+
+
+<!-- Closes [INTERNAL_ISSUE_ID]: Internal purposes only -->
