@@ -19,7 +19,7 @@
 
 - [ ] Self-reviewed, no leftover logs or debug code
 - [ ] Uses design tokens — no hardcoded style values
-- [ ] Accessible (keyboard nav, ARIA, contrast)
+- [ ] Accessible (keyboard nav, ARIA, contrast, etc.)
 - [ ] Tests added/updated and passing
 - [ ] Storybook story added/updated
 
