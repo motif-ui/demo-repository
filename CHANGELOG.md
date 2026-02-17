@@ -1,3 +1,16 @@
+## [1.0.20](https://github.com/motif-ui/demo-repository/compare/v1.0.19...v1.0.20) (2026-02-17)
+
+
+### Bug Fixes
+
+* issue template ([#164](https://github.com/motif-ui/demo-repository/issues/164)) ([b1e772c](https://github.com/motif-ui/demo-repository/commit/b1e772c08a5e26ddab98da745bcae3ad0ca8d7c1))
+* issue template ([#167](https://github.com/motif-ui/demo-repository/issues/167)) ([48884b4](https://github.com/motif-ui/demo-repository/commit/48884b4a39c4a07b6dc3348cf6631851b45a2df8))
+* issue template ([#173](https://github.com/motif-ui/demo-repository/issues/173)) ([635beeb](https://github.com/motif-ui/demo-repository/commit/635beeb674d6b16e881b3efdce85e3bd0c01bf36))
+* issue template ([#174](https://github.com/motif-ui/demo-repository/issues/174)) ([e51e579](https://github.com/motif-ui/demo-repository/commit/e51e5793d9e89c3dc976823ead1f962efd299f70))
+* last update from edk-ui ([#177](https://github.com/motif-ui/demo-repository/issues/177)) ([19e0a0e](https://github.com/motif-ui/demo-repository/commit/19e0a0e0426ab41047a7ae3286b2a178031a2d59))
+* license update ([#175](https://github.com/motif-ui/demo-repository/issues/175)) ([d79e918](https://github.com/motif-ui/demo-repository/commit/d79e91835f87f93cd65ceddd5128770b39e5ae73))
+* license update ([#176](https://github.com/motif-ui/demo-repository/issues/176)) ([18cfee2](https://github.com/motif-ui/demo-repository/commit/18cfee26e0002ffbdf16fbdc56c7b3b1795879fb))
+
 ## [1.0.19](https://github.com/motif-ui/demo-repository/compare/v1.0.18...v1.0.19) (2026-02-12)
 
 
