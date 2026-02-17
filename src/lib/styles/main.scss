@@ -6,13 +6,11 @@
   overflow: hidden;
 }
 
-$unit: px;
-
 @mixin focus-ring() {
   $focusShadowMain: var(--theme-elevation-focusring-x) var(--theme-elevation-focusring-y) var(--theme-elevation-focusring-blur)
-    var(--theme-elevation-focusring-spread) var(--theme-color-border-primary-focus);
+  var(--theme-elevation-focusring-spread) var(--theme-color-border-primary-focus);
   $focusShadowWhite: var(--theme-elevation-focusring-white-x) var(--theme-elevation-focusring-white-y)
-    var(--theme-elevation-focusring-white-blur) var(--theme-elevation-focusring-white-spread) var(--theme-elevation-focusring-white-shadow);
+  var(--theme-elevation-focusring-white-blur) var(--theme-elevation-focusring-white-spread) var(--theme-elevation-focusring-white-shadow);
 
   &:focus-visible {
     z-index: 1;
@@ -24,14 +22,14 @@ $unit: px;
 
 @mixin shadow($level: 1) {
   box-shadow: var(--theme-elevation-elevation#{$level}-x) var(--theme-elevation-elevation#{$level}-y)
-    var(--theme-elevation-elevation#{$level}-blur) var(--theme-elevation-elevation#{$level}-spread)
-    var(--theme-elevation-elevation#{$level}-shadow);
+  var(--theme-elevation-elevation#{$level}-blur) var(--theme-elevation-elevation#{$level}-spread)
+  var(--theme-elevation-elevation#{$level}-shadow);
 }
 
 @mixin drop-shadow($level: 1) {
   filter: drop-shadow(
-    var(--theme-elevation-elevation#{$level}-x) var(--theme-elevation-elevation#{$level}-y) var(--theme-elevation-elevation#{$level}-blur)
-      var(--theme-elevation-elevation#{$level}-shadow)
+                  var(--theme-elevation-elevation#{$level}-x) var(--theme-elevation-elevation#{$level}-y) var(--theme-elevation-elevation#{$level}-blur)
+                  var(--theme-elevation-elevation#{$level}-shadow)
   );
 }
 
@@ -53,6 +51,23 @@ $unit: px;
     display: none;
   }
   -ms-overflow-style: none;
+}
+
+@mixin widthOrWidthBelowScreenSize($maxWidthBreakpoint, $baseWidthVar, $belowThresholdWidth) {
+  width: clamp(
+          var($baseWidthVar),
+          calc( (var($maxWidthBreakpoint) - 100vw) * 1000 + var($baseWidthVar) ),
+          $belowThresholdWidth
+  );
+}
+
+@mixin flex-center($direction: null) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @if $direction {
+    flex-direction: $direction;
+  }
 }
 
 @function url-encoded-color($color) {

@@ -1,6 +1,7 @@
 import type { Preview } from "@storybook/nextjs";
-import { EDKUIProvider } from "../src/lib";
 import { useInsertionEffect } from "react";
+import { CustomTabContainer } from "./customTab/CustomTabContainer";
+import MotifProvider from "../src/lib/motif/context/MotifProvider";
 
 const DEFAULT_THEME = "default-theme";
 const RESET_THEME_BUTTON_VAL = "_reset";
@@ -40,9 +41,9 @@ const preview: Preview = {
       }, [theme]);
 
       return (
-        <EDKUIProvider>
+        <MotifProvider>
           <Story />
-        </EDKUIProvider>
+        </MotifProvider>
       );
     },
   ],
@@ -52,7 +53,7 @@ const preview: Preview = {
         method: "alphabetical",
         order: [
           "Getting Started",
-          ["Overview", "Installation", "Element Access", "EDKUIProvider", "Localization", "Accessibility", "Browser Support"],
+          ["Overview", "Installation", "Element Access", "MotifProvider", "Localization", "Accessibility", "Browser Support"],
           "Integrations",
           "Customization",
           ["Guide"],
@@ -77,6 +78,7 @@ const preview: Preview = {
       },
     },
     docs: {
+      container: CustomTabContainer,
       toc: {
         title: "On this page",
         headingSelector: "h2, h3",

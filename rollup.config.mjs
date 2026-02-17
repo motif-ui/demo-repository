@@ -11,10 +11,18 @@ import del from "rollup-plugin-delete";
 import alias from "@rollup/plugin-alias";
 import path from "path";
 import { fileURLToPath } from "url";
-import { generateScopedCssClassName } from "./src/lib/styles/scripts/buildForRollup.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const DEFAULT_CLASSNAME_PREFIX = "mtf-";
+
+const generateScopedCssClassName = (localClassName, moduleFilePath) => {
+  const moduleName = moduleFilePath.match(/\/([^/]+)\.module\.scss$/)?.[1];
+
+  return localClassName === "Root"
+    ? `${DEFAULT_CLASSNAME_PREFIX}${moduleName}`
+    : `${DEFAULT_CLASSNAME_PREFIX}${moduleName}--${localClassName}`;
+};
 
 export default [
   {
@@ -73,6 +81,7 @@ export default [
         },
         sass: {
           includePaths: [path.resolve(__dirname, "src/lib/styles")],
+          silenceDeprecations: ["if-function"],
           importer: [
             function (url) {
               // resolves @styles/... imports

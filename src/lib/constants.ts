@@ -1,6 +1,6 @@
-import { EDKUIContextProps } from "./edk/types/contextProps";
+import { MotifContextProps } from "./motif/types/contextProps";
 
-export const EDK_UI_ICONS_DEFAULT_CLASS = "edkui-icons";
+export const MOTIF_ICONS_DEFAULT_CLASS = "mtf-ui-icons";
 
 export const SCREEN_SIZES = {
   XL: 1200,
@@ -10,12 +10,14 @@ export const SCREEN_SIZES = {
 };
 
 export const DEFAULT_LOCALE = "tr";
-export const DEFAULT_CLASSNAME_PREFIX = "edk-";
+export const DEFAULT_CLASSNAME_PREFIX = "mtf-";
 export const DEFAULT_COLOR_MODE = "light";
+export const LOGO_URL = "https://cdn.jsdelivr.net/gh/motif-ui/assets/images/motifui-logo.svg";
+export const NPM_LOGO_URL = "https://raw.githubusercontent.com/npm/logos/refs/heads/master/npm%20square/npm-16.png";
 
-export const DEFAULT_EDKUI_CONTEXT_VALUES: EDKUIContextProps = {
+export const DEFAULT_MOTIF_CONTEXT_VALUES: MotifContextProps = {
   locale: DEFAULT_LOCALE,
-  baseIconClass: EDK_UI_ICONS_DEFAULT_CLASS,
+  baseIconClass: MOTIF_ICONS_DEFAULT_CLASS,
   componentDefaults: {},
   setBaseIconClass: () => {},
   setLocale: () => {},

@@ -3,10 +3,10 @@
 import { create } from "storybook/theming/create";
 import { ThemeVars } from "storybook/theming";
 
-const edkTheme: ThemeVars = create({
+const motifTheme: ThemeVars = create({
   base: "light",
-  brandTitle: "EDK-UI",
-  brandUrl: "https://turkiye.gov.tr",
+  brandTitle: "Motif UI",
+  brandUrl: "https://motif-ui.com",
   brandImage: "https://storybook.js.org/images/placeholders/350x150.png",
   brandTarget: "_self",
   /*
@@ -41,4 +41,4 @@ const edkTheme: ThemeVars = create({
 */
 });
 
-export default edkTheme;
+export default motifTheme;

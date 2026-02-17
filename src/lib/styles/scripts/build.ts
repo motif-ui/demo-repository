@@ -15,12 +15,6 @@ import {
 } from "./helper";
 import { isObj } from "../../../utils/utils";
 
-/*
- * TODO: İleride bakılacak. Normalde constants.ts'den import edilmesi gerekiyor fakat rollup run edildiğinde uzantı
- * kaynaklı module bulunamadı hatası alınıyor. Yarım günümü ayırdım fakat sorunu çözemedim. Şimdilik bu şekilde devam
- * edebiliriz.
- * */
-
 /**
  * Recursively traverse Webpack rules to locate all css-loader entries and handles nested structures (oneOf, rules) safely.
  */

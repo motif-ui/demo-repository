@@ -4,7 +4,7 @@ import styles from "./Divider.module.scss";
 import { PropsWithRef } from "../../types";
 import { DividerProps } from "../Divider/types";
 import { sanitizeModuleRootClasses } from "../../../utils/cssUtils";
-import usePropsWithThemeDefaults from "../../edk/hooks/usePropsWithThemeDefaults";
+import usePropsWithThemeDefaults from "../../motif/hooks/usePropsWithThemeDefaults";
 
 const Divider = (props: PropsWithRef<DividerProps, HTMLDivElement>) => {
   const {
