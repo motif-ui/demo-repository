@@ -4,14 +4,17 @@ import { applyCustomCSSModuleNaming } from "../src/lib/styles/scripts/build";
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
-  features: { interactions: false },
+
   staticDirs: [{ from: "../src/lib/styles/themes", to: "/themes" }],
 
   core: {
     disableTelemetry: true,
   },
 
-  addons: ["@storybook/addon-links", "@storybook/addon-docs"],
+  addons:
+    process.env.NODE_ENV === "production"
+      ? ["@storybook/addon-links", "@storybook/addon-docs"]
+      : ["@storybook/addon-links", "@chromatic-com/storybook", "@storybook/addon-docs"],
 
   framework: {
     name: "@storybook/nextjs",
@@ -37,6 +40,9 @@ const config: StorybookConfig = {
 
   typescript: {
     reactDocgen: "react-docgen-typescript",
+  },
+  features: {
+    interactions: process.env.NODE_ENV === "development",
   },
 };
 export default config;

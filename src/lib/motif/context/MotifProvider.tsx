@@ -1,16 +1,16 @@
 "use client";
 
 import { createContext, PropsWithChildren, useContext, useInsertionEffect, useMemo, useState } from "react";
-import { DEFAULT_EDKUI_CONTEXT_VALUES, DEFAULT_LOCALE, EDK_UI_ICONS_DEFAULT_CLASS } from "../../constants";
-import { ComponentDefaults, EDKUIContextProps, EDKUIProviderProps, Locale } from "../types/contextProps";
+import { DEFAULT_MOTIF_CONTEXT_VALUES, DEFAULT_LOCALE, MOTIF_ICONS_DEFAULT_CLASS } from "../../constants";
+import { ComponentDefaults, MotifContextProps, MotifProviderProps, Locale } from "../types/contextProps";
 import { convertThemeToCSSVariables } from "../helper";
 
-const EDKUIContext = createContext<EDKUIContextProps>(DEFAULT_EDKUI_CONTEXT_VALUES);
-export const useEDKUIContext = () => useContext(EDKUIContext);
+const MotifContext = createContext<MotifContextProps>(DEFAULT_MOTIF_CONTEXT_VALUES);
+export const useMotifContext = () => useContext(MotifContext);
 
-const EDKUIProvider = (props: PropsWithChildren<EDKUIProviderProps>) => {
+const MotifProvider = (props: PropsWithChildren<MotifProviderProps>) => {
   const [componentDefaults, setComponentDefaults] = useState<ComponentDefaults>(props.componentDefaults || {});
-  const [baseIconClass, setBaseIconClass] = useState(props.baseIconClass || EDK_UI_ICONS_DEFAULT_CLASS);
+  const [baseIconClass, setBaseIconClass] = useState(props.baseIconClass || MOTIF_ICONS_DEFAULT_CLASS);
   const [locale, setLocale] = useState<Locale>(props.locale || DEFAULT_LOCALE);
   const [font, setFont] = useState(props.font);
   const [theme, setTheme] = useState(props.theme);
@@ -37,7 +37,7 @@ const EDKUIProvider = (props: PropsWithChildren<EDKUIProviderProps>) => {
     };
   }, [font, themeCssVariables]);
 
-  const value: EDKUIContextProps = useMemo(
+  const value: MotifContextProps = useMemo(
     () => ({
       componentDefaults,
       locale,
@@ -52,6 +52,6 @@ const EDKUIProvider = (props: PropsWithChildren<EDKUIProviderProps>) => {
     [baseIconClass, componentDefaults, locale, theme],
   );
 
-  return <EDKUIContext value={value}>{props.children}</EDKUIContext>;
+  return <MotifContext value={value}>{props.children}</MotifContext>;
 };
-export default EDKUIProvider;
+export default MotifProvider;

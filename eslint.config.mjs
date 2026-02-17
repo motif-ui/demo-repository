@@ -73,7 +73,7 @@ export default [
     },
   },
   {
-    ignores: ["node_modules", "dist", "src/lib/styles/scripts/buildForRollup.js", "src/scripts/*"],
+    ignores: ["node_modules", "dist", "src/scripts/*"],
   },
   {
     // Configuration specific to TypeScript files

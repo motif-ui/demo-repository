@@ -85,9 +85,10 @@ export const rgbToHex = (r: number, g: number, b: number) =>
  * @param r - Red channel (0-255)
  * @param g - Green channel (0-255)
  * @param b - Blue channel (0-255)
+ * @param threshold - Threshold value for brightness check (0-100)
  * @returns true if color is bright
  */
-export const isBright = (r: number, g: number, b: number) => {
+export const isBright = (r: number, g: number, b: number, threshold = 85) => {
   const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
-  return luminance > 0.85;
+  return luminance > threshold / 100;
 };

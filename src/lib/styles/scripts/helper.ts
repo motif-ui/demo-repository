@@ -2,7 +2,7 @@ import * as path from "path";
 import type { RuleSetUseItem, RuleSetRule, Configuration } from "webpack";
 import { UseItemObject } from "./types";
 import { isObj, hasOwn } from "../../../utils/utils";
-const DEFAULT_CLASSNAME_PREFIX = "edk-";
+const DEFAULT_CLASSNAME_PREFIX = "mtf-";
 
 /** Convert Windows backslashes to POSIX-style forward slashes */
 const toPosix = (p: string): string => p.replace(/\\/g, "/");
@@ -27,8 +27,8 @@ const getModuleNameFromPath = (resourcePath: string): string => path.basename(re
 
 /**
  * Generate a standardized, scoped CSS class name.
- * Root class: edk-[module]
- * Nested class: edk-[module]--[local]
+ * Root class: mtf-[module]
+ * Nested class: mtf-[module]--[local]
  */
 export const generateScopedCSSClassName = (localClassName: string, moduleFilePath: string): string => {
   const moduleName = getModuleNameFromPath(moduleFilePath);

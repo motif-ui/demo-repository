@@ -2,7 +2,7 @@ import { StandardProps } from "../../types";
 import type { ComponentDefaultableProps } from "./componentDefaultableProps";
 import { ColorBorder, ColorSemantic, ColorSurface, ColorText, Elevation, Grid, Sizing, Typography } from "./cssVariablesType";
 
-export type EDKUIProviderProps = {
+export type MotifProviderProps = {
   locale?: Locale;
   baseIconClass?: string;
   componentDefaults?: ComponentDefaults;
@@ -10,7 +10,7 @@ export type EDKUIProviderProps = {
   theme?: Theme;
 };
 
-export type EDKUIContextProps = {
+export type MotifContextProps = {
   locale: Locale;
   baseIconClass: string;
   componentDefaults: ComponentDefaults;
