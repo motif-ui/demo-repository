@@ -1,0 +1,44 @@
+name: Check Internal Issue Reference
+
+on:
+  pull_request:
+    types: [opened, edited, reopened]
+
+permissions:
+  pull-requests: read
+  contents: none
+
+jobs:
+  check-issue-reference:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check internal issue reference for core team PRs
+        uses: actions/github-script@v7
+        env:
+          CORE_TEAM: ${{ vars.CORE_TEAM }}
+        with:
+          script: |
+            const coreTeamStr = process.env.CORE_TEAM || '';
+            const coreTeam = coreTeamStr.split(',').map(name => name.trim());
+            const actor = context.actor;
+            const prBody = context.payload.pull_request.body || '';
+
+            core.info(`👤 PR opened by: ${actor}`);
+
+            const isInternal = coreTeam.includes(actor);
+
+            if (!isInternal) {
+              core.info('ℹ️ Actor is not in core team. Skipping internal issue check.');
+              return;
+            }
+
+            core.info('🔍 Actor is core team. Checking PR description...');
+
+            const issuePattern = /#EDKUI-\d+/;
+            const match = prBody.match(issuePattern);
+
+            if (match) {
+              core.info(`✅ Found internal issue reference: ${match[0]}`);
+            } else {
+              core.setFailed('❌ Core team PRs must include an internal issue reference (e.g., #EDKUI-1288)');
+            }

@@ -1,0 +1,35 @@
+name: NPM Release
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    environment: release
+
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      HUSKY: 0
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: 'false'
+
+      - uses: ./.github/actions/setup-node-deps
+
+      - name: Prepare npmrc for npm publish
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+
+      - name: Semantic Release
+        run: npx semantic-release
