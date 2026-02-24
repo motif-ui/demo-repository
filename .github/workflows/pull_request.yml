@@ -31,8 +31,8 @@ jobs:
         id: chromatic
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          exitZeroOnChanges: true
-          #onlyChanged: true
+          #exitZeroOnChanges: true
+          onlyChanged: true
 
       - name: Comment Chromatic URLs on PR
         uses: actions/github-script@v7
@@ -40,7 +40,7 @@ jobs:
           script: |
             const storybookUrl = '${{ steps.chromatic.outputs.storybookUrl }}';
             const buildUrl = '${{ steps.chromatic.outputs.buildUrl }}';
-            const body = `## 🎨 Chromatic\n\n| | URL |\n|---|---|\n| 📖 Storybook | ${storybookUrl} |\n| 🔍 Build | ${buildUrl} |`;
+            const body = `## Chromatic\n\n| | URL |\n|---|---|\n| 📖 Storybook | ${storybookUrl} |\n| 🔍 Build | ${buildUrl} |`;
 
             const comments = await github.rest.issues.listComments({
               owner: context.repo.owner,
