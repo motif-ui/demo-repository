@@ -1,0 +1,13 @@
+**/.git
+**/.svn
+**/.hg
+**/node_modules
+**/build
+**/.prettierignore
+**/*.gitignore
+**/*.gitkeep
+/.env
+/.conf
+tsconfig.json
+/package.json
+/package-lock.json
