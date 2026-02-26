@@ -10,7 +10,7 @@ const Divider = (props: PropsWithRef<DividerProps, HTMLDivElement>) => {
   const {
     size = "md",
     orientation = "horizontal",
-    gap = "md",
+    gap = "lg",
     shape = "solid",
     style,
     className,
