@@ -23,16 +23,14 @@ $sizes: (("sm", "1x", "6x"), ("md", "2x", "12x"), ("lg", "4x", "18x"));
 .Root {
   &::before {
     box-sizing: border-box;
-    border-color: var(--theme-color-surface-base-base6);
+    border-color: yellow;
     position: absolute;
     content: "";
   }
 
   &.horizontal {
-    min-width: 100%;
     position: relative;
     &::before {
-      width: 100%;
     }
     &.solid::before {
       border-top-style: solid;
