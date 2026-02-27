@@ -27,14 +27,14 @@ jobs:
 
       - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      - uses: chromaui/action@latest
-        id: chromatic
-        with:
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          #exitZeroOnChanges: true
-          #onlyChanged: true
+#      - uses: chromaui/action@latest
+#        id: chromatic
+#        with:
+#          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+#          #exitZeroOnChanges: true
+#          #onlyChanged: true
 
-      - run: npm run chromatic
+      - run: npm run chromatic --project-token ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 
       - name: Comment Chromatic URLs on PR
         uses: actions/github-script@v7
