@@ -27,41 +27,12 @@ jobs:
 
       - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
+      - run: npx chromatic
+        env: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+
       - uses: chromaui/action@latest
         id: chromatic
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           #exitZeroOnChanges: true
           #onlyChanged: true
-
-      - name: Comment Chromatic URLs on PR
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const storybookUrl = '${{ steps.chromatic.outputs.storybookUrl }}';
-            const buildUrl = '${{ steps.chromatic.outputs.buildUrl }}';
-            const body = `## 🎨 Chromatic\n\n| | URL |\n|---|---|\n| 📖 Storybook | ${storybookUrl} |\n| 🔍 Build | ${buildUrl} |`;
-
-            const comments = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.payload.pull_request.number,
-            });
-
-            const existing = comments.data.find(c => c.body.includes('🎨 Chromatic'));
-
-            if (existing) {
-              await github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: existing.id,
-                body,
-              });
-            } else {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.payload.pull_request.number,
-                body,
-              });
-            }
