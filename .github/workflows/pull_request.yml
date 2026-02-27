@@ -27,8 +27,7 @@ jobs:
 
       - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      - run: npx chromatic
-        env: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+      - run: npx chromatic --projectToken=${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 
       - uses: chromaui/action@latest
         id: chromatic
