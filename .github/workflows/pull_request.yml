@@ -34,7 +34,7 @@ jobs:
 #          #exitZeroOnChanges: true
 #          #onlyChanged: true
 
-      - run: npm run chromatic --project-token ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+      - run: npm run chromatic --project-token=chpt_b0f0547c47da6c2
 
       - name: Comment Chromatic URLs on PR
         uses: actions/github-script@v7
