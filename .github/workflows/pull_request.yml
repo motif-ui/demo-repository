@@ -5,7 +5,7 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
+  pull-requests: read
 
 jobs:
   ci:
@@ -24,8 +24,6 @@ jobs:
           persist-credentials: 'false'
 
       - uses: ./.github/actions/setup-node-deps
-
-      - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
       - uses: chromaui/action@latest
         id: chromatic
