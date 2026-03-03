@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/motif-ui/demo-repository/compare/v1.0.22...v1.1.0) (2026-03-03)
+
+
+### Features
+
+* denemeler ([#192](https://github.com/motif-ui/demo-repository/issues/192)) ([68d32a7](https://github.com/motif-ui/demo-repository/commit/68d32a7c0adc814cafb26b088350899ca6901b84))
+
 ## [1.0.22](https://github.com/motif-ui/demo-repository/compare/v1.0.21...v1.0.22) (2026-03-03)
 
 
