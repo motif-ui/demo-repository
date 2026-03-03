@@ -31,12 +31,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
         run: |
-          npx semantic-release --dry-run > release_output.txt 2>&1
+          npx semantic-release --dry-run > release_output.txt 2>&1 || DRY_RUN_FAILED=true
+          cat release_output.txt
           VERSION=$(grep -oP 'The next release version is \K[0-9]+\.[0-9]+\.[0-9]+' release_output.txt || echo "")
           if [ -n "$VERSION" ]; then
             echo "### 🚀 Pending Release: v$VERSION" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             sed -n '/### v/,$p' release_output.txt >> $GITHUB_STEP_SUMMARY
+          elif [ "${DRY_RUN_FAILED}" = "true" ]; then
+            echo "### ❌ Dry run failed — check the logs above for details." >> $GITHUB_STEP_SUMMARY
+            exit 1
           else
             echo "### ℹ️ No pending release — no releasable changes since last version." >> $GITHUB_STEP_SUMMARY
           fi
