@@ -6,34 +6,28 @@ on:
 
 permissions:
   pull-requests: read
-  contents: none
+  contents: read
 
 jobs:
   check-issue-reference:
     runs-on: ubuntu-latest
     steps:
-      - name: Check internal issue reference for core team PRs
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: 'false'
+
+      - name: Check core team membership
+        id: team-check
+        uses: ./.github/actions/check-core-team
+        with:
+          core-team: ${{ vars.CORE_TEAM }}
+
+      - name: Check internal issue reference
+        if: steps.team-check.outputs.is-internal == 'true'
         uses: actions/github-script@v7
-        env:
-          CORE_TEAM: ${{ vars.CORE_TEAM }}
         with:
           script: |
-            const coreTeamStr = process.env.CORE_TEAM || '';
-            const coreTeam = coreTeamStr.split(',').map(name => name.trim());
-            const actor = context.actor;
             const prBody = context.payload.pull_request.body || '';
-
-            core.info(`👤 PR opened by: ${actor}`);
-
-            const isInternal = coreTeam.includes(actor);
-
-            if (!isInternal) {
-              core.info('ℹ️ Actor is not in core team. Skipping internal issue check.');
-              return;
-            }
-
-            core.info('🔍 Actor is core team. Checking PR description...');
-
             const issuePattern = /#EDKUI-\d+/;
             const match = prBody.match(issuePattern);
 
