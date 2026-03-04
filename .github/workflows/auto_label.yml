@@ -4,7 +4,7 @@ on:
   issues:
     types: [opened, reopened]
   pull_request:
-    types: [opened, edited, reopened]
+    types: [opened, reopened]
 
 permissions:
   issues: write
@@ -14,22 +14,20 @@ jobs:
   auto_label:
     runs-on: ubuntu-latest
     steps:
-      - name: Apply labels
+      - name: Apply triage label
         uses: actions/github-script@v7
         env:
           CORE_TEAM: ${{ vars.CORE_TEAM }}
         with:
           script: |
             const coreTeam = (process.env.CORE_TEAM || '').split(',').map(n => n.trim());
-            const actor = context.actor;
-            const isActorInternal = coreTeam.includes(actor);
+            const isActorInternal = coreTeam.includes(context.actor);
 
             const issueNumber =
               context.eventName === 'pull_request'
                 ? context.payload.pull_request.number
                 : context.payload.issue.number;
 
-            // --- Internal / needs triage label ---
             const triageLabel = isActorInternal ? 'internal' : 'needs triage';
             core.info(`Applying triage label: ${triageLabel}`);
             await github.rest.issues.addLabels({
@@ -38,57 +36,3 @@ jobs:
               issue_number: issueNumber,
               labels: [triageLabel],
             });
-
-            // --- Release labels (PRs only, keyed on PR author) ---
-            if (context.eventName !== 'pull_request') return;
-
-            const prAuthor = context.payload.pull_request.user.login;
-            const isAuthorInternal = coreTeam.includes(prAuthor);
-
-            if (!isAuthorInternal) {
-              core.info('PR author is not in core team. Skipping release label.');
-              return;
-            }
-
-            // Remove any existing release:* labels before re-applying
-            const { data: currentLabels } = await github.rest.issues.listLabelsOnIssue({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: issueNumber,
-            });
-
-            for (const label of currentLabels.filter(l => l.name.startsWith('release:'))) {
-              core.info(`Removing stale label: ${label.name}`);
-              await github.rest.issues.removeLabel({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: issueNumber,
-                name: label.name,
-              });
-            }
-
-            // Map PR title type to release label
-            function getReleaseLabel(title) {
-              if (/^[a-z]+(\([a-z0-9/_-]+\))?!: .+/.test(title)) return 'release:major';
-              const match = title.match(/^([a-z]+)(\([a-z0-9/_-]+\))?:/);
-              if (!match) return null;
-              const type = match[1];
-              if (['feat', 'perf'].includes(type)) return 'release:minor';
-              if (['fix', 'revert'].includes(type)) return 'release:patch';
-              return null; // docs, chore, ci, build, style, refactor, test → no release
-            }
-
-            const title = context.payload.pull_request.title;
-            const releaseLabel = getReleaseLabel(title);
-
-            if (releaseLabel) {
-              core.info(`Applying release label: ${releaseLabel}`);
-              await github.rest.issues.addLabels({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: issueNumber,
-                labels: [releaseLabel],
-              });
-            } else {
-              core.info('PR title type does not warrant a release label.');
-            }
