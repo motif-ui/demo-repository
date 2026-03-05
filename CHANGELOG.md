@@ -1,3 +1,21 @@
+## v2.0.0 (2026-03-05)
+
+## ⚠️ Breaking Changes
+
+- ci!: final release denemesi (#208) @aktasmehmet
+
+## 🚀 Features
+
+- feat: important divider fix is applied (#207) @aktasmehmet
+
+## 🐛 Bug Fixes
+
+- fix: divider scss error (#206) @aktasmehmet
+- fix: feature/mehmet 11 (#205) @aktasmehmet
+- fix: release drafter denemesi (#204) @aktasmehmet
+- fix: release drafter denemeleri (#203) @aktasmehmet
+
+
 # [1.1.0](https://github.com/motif-ui/demo-repository/compare/v1.0.22...v1.1.0) (2026-03-03)
 
 
