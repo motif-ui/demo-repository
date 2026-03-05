@@ -8,6 +8,10 @@
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/motif-ui/demo-repository.git"
+  },
   "scripts": {
     "build": "next build",
     "dev": "next dev --webpack",
