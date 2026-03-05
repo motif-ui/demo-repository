@@ -48,9 +48,30 @@ jobs:
         env:
           RELEASE_BODY: ${{ github.event.release.body }}
           RELEASE_TAG: ${{ github.event.release.tag_name }}
+          REPO: ${{ github.repository }}
         run: |
           DATE=$(date -u +%Y-%m-%d)
-          printf '## %s (%s)\n\n%s\n\n' "${RELEASE_TAG}" "${DATE}" "${RELEASE_BODY}" > /tmp/entry.md
+          REPO_URL="https://github.com/${REPO}"
+
+          # Transform (#NUMBER) → linked PR reference
+          BODY=$(echo "${RELEASE_BODY}" | sed -E "s|\(#([0-9]+)\)|([#\1](${REPO_URL}/pull/\1))|g")
+          # Transform @username → linked GitHub profile
+          BODY=$(echo "${BODY}" | sed -E "s|@([a-zA-Z0-9_-]+)|[@\1](https://github.com/\1)|g")
+
+          # Find previous tag for full changelog link
+          PREV_TAG=$(git tag --sort=-version:refname | grep -E '^v[0-9]' | sed -n '2p')
+
+          {
+            echo "# [${RELEASE_TAG}](${REPO_URL}/releases/tag/${RELEASE_TAG}) (${DATE})"
+            echo ""
+            echo "${BODY}"
+            if [ -n "${PREV_TAG}" ]; then
+              echo ""
+              echo "[Full Changelog](${REPO_URL}/compare/${PREV_TAG}...${RELEASE_TAG})"
+            fi
+            echo ""
+          } > /tmp/entry.md
+
           if [ -f CHANGELOG.md ]; then
             cat /tmp/entry.md CHANGELOG.md > /tmp/changelog.md
             mv /tmp/changelog.md CHANGELOG.md
