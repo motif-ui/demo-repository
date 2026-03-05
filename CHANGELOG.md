@@ -1,3 +1,9 @@
+# [v2.0.2](https://github.com/motif-ui/demo-repository/releases/tag/v2.0.2) (2026-03-05)
+
+npm fix
+
+[Full Changelog](https://github.com/motif-ui/demo-repository/compare/v2.0.1...v2.0.2)
+
 # [v2.0.1](https://github.com/motif-ui/demo-repository/releases/tag/v2.0.1) (2026-03-05)
 
 ## 🐛 Bug Fixes
