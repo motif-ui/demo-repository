@@ -1,3 +1,11 @@
+# [v2.0.1](https://github.com/motif-ui/demo-repository/releases/tag/v2.0.1) (2026-03-05)
+
+## 🐛 Bug Fixes
+
+- fix: minor change ([#209](https://github.com/motif-ui/demo-repository/pull/209)) [@aktasmehmet](https://github.com/aktasmehmet)
+
+[Full Changelog](https://github.com/motif-ui/demo-repository/compare/v2.0.0...v2.0.1)
+
 ## v2.0.0 (2026-03-05)
 
 ## ⚠️ Breaking Changes
