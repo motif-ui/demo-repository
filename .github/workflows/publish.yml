@@ -44,11 +44,25 @@ jobs:
         env:
           HUSKY: 0
 
+      - name: Update CHANGELOG.md
+        env:
+          RELEASE_BODY: ${{ github.event.release.body }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          DATE=$(date -u +%Y-%m-%d)
+          printf '## %s (%s)\n\n%s\n\n' "${RELEASE_TAG}" "${DATE}" "${RELEASE_BODY}" > /tmp/entry.md
+          if [ -f CHANGELOG.md ]; then
+            cat /tmp/entry.md CHANGELOG.md > /tmp/changelog.md
+            mv /tmp/changelog.md CHANGELOG.md
+          else
+            mv /tmp/entry.md CHANGELOG.md
+          fi
+
       - name: Commit version bump
         run: |
           git config user.name "${{ steps.generate_token.outputs.app-slug }}[bot]"
           git config user.email "${{ steps.bot-user-id.outputs.user-id }}+${{ steps.generate_token.outputs.app-slug }}[bot]@users.noreply.github.com"
-          git add package.json
+          git add package.json package-lock.json CHANGELOG.md
           git commit -m "chore(release): ${{ github.event.release.tag_name }} [skip ci]"
           git push
         env:
