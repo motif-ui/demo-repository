@@ -18,7 +18,6 @@ const preview: Preview = {
           { value: RESET_THEME_BUTTON_VAL, title: "Default Theme", right: "🔵" },
           { value: "papyrus", title: "Papyrus", right: "📜" },
         ],
-        showName: true,
         dynamicTitle: true,
       },
     },
