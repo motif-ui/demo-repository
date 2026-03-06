@@ -32,10 +32,10 @@ us and always remember we have other things to do as well 🙏
 
 ## 🧑‍💻 Development Setup
 
-In order to begin, fork the [repo](https://github.com/motif-ui/motifreact), then clone your fork.
+In order to begin, fork the [repo](https://github.com/motif-ui/demo-repository), then clone your fork.
 ```bash
-git clone https://github.com/<your-username>/motifreact.git
-cd motifreact
+git clone https://github.com/<your-username>/demo-repository.git
+cd demo-repository
 ````
 
 Install dependencies with npm
@@ -77,10 +77,9 @@ how to use it.
 ## 🏗 Project Structure
 
 ```
-motifreact/
+demo-repository/
 ├── src/
 │   ├── app/
-│   ├── docs/
 │   ├── lib/
 │   │   ├── components/
 │   │   ├── hooks/
@@ -114,14 +113,14 @@ We follow the **Conventional Commits** specification, so please make sure follow
 | `perf`      | Big structural change that affects the whole library                         | X . _ . _      |
 | `feat`      | New feature or a significant change                                          | _ . X . _      |
 | `fix`       | Bug fix and other minor stuff                                                | _ . _ . X      |
-| docs        | Documentation changes                                                        | Yok            |
-| style       | Style or Css changes that does not affect the library in general             | Yok            |
-| refactor    | Every code change which does not add a new feature or bugfix                 | Yok            |
-| test        | Test related changes                                                         | Yok            |
-| chore       | Operational changes that possible affects the build process or related stuff | Yok            |
-| build       | Might be stated as the new version of `chore`                                | Yok            |
-| ci          | Changes that are related with Continuous integration and pipelines           | Yok            |
-| revert      | Work to make rollback for non-fix changes                                    | Yok            |
+| `docs`      | Documentation changes                                                        | Yok            |
+| `style`     | Style or Css changes that does not affect the library in general             | Yok            |
+| `refactor`  | Every code change which does not add a new feature or bugfix                 | Yok            |
+| `test`      | Test related changes                                                         | Yok            |
+| `chore`     | Operational changes that possible affects the build process or related stuff | Yok            |
+| `build`     | Might be stated as the new version of `chore`                                | Yok            |
+| `ci`        | Changes that are related with Continuous integration and pipelines           | Yok            |
+| `revert`    | Work to make rollback for non-fix changes                                    | Yok            |
 
 
 
