@@ -1,4 +1,4 @@
-name: Auto Assign PR to Author
+name: Auto Assign  OUT PR to Author
 
 on:
   pull_request:
