@@ -77,7 +77,7 @@ how to use it.
 ## 🏗 Project Structure
 
 ```
-demo-repository/
+motif-ui/
 ├── src/
 │   ├── app/
 │   ├── lib/

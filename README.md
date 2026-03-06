@@ -3,7 +3,7 @@
   <h1>Motif UI</h1>
   <p>TypeScript ve CSS Modülleri ile geliştirilmiş, hafif ve tema desteğine sahip bir React bileşen kütüphanesi.</p>
 
-  [![npm version](https://img.shields.io/npm/v/@ab-demo-ui/demo-react.svg)](https://www.npmjs.com/package/@ab-demo-ui/demo-react)
+  [![npm version](https://img.shields.io/npm/v/@motif-ui/react.svg)](https://www.npmjs.com/package/@motif-ui/react)
   [![Lisans: MIT](https://img.shields.io/badge/Lisans-MIT-yellow.svg)](./LICENSE.md)
   [![PR'lar Hoş Geldiniz](https://img.shields.io/badge/PR'lar-bekleniyor-brightgreen.svg)](./.github/CONTRIBUTING.md)
 </div>
@@ -25,7 +25,7 @@
 ## 📦 Kurulum
 
 ```bash
-npm install @ab-demo-ui/demo-react
+npm install @motif-ui/react
 ```
 
 > **Zorunlu bağımlılıklar**: React 19 ve ReactDOM 19 gereklidir.
@@ -41,7 +41,7 @@ npm install react@19 react-dom@19
 Tema ve bağlam özelliklerini etkinleştirmek için uygulamanızı `EDKUIProvider` ile sarmalayın:
 
 ```tsx
-import { EDKUIProvider } from "@ab-demo-ui/demo-react";
+import { EDKUIProvider } from "@motif-ui/react";
 
 export default function App({ children }) {
   return <EDKUIProvider>{children}</EDKUIProvider>;
@@ -51,7 +51,7 @@ export default function App({ children }) {
 Ardından bileşenleri istediğiniz yerde kullanın:
 
 ```tsx
-import { Divider } from "@ab-demo-ui/demo-react";
+import { Divider } from "@motif-ui/react";
 
 export default function Sayfa() {
   return (
@@ -73,7 +73,7 @@ export default function Sayfa() {
 Boyut, boşluk ve şekil ayarlarına sahip yatay ya da dikey bir çizgi bileşeni.
 
 ```tsx
-import { Divider } from "@ab-demo-ui/demo-react";
+import { Divider } from "@motif-ui/react";
 
 // Yatay (varsayılan)
 <Divider />
@@ -98,10 +98,10 @@ import { Divider } from "@ab-demo-ui/demo-react";
 
 ## 🪝 Hook'lar
 
-Hook'lar `@ab-demo-ui/demo-react/hooks` alt yolundan içe aktarılır:
+Hook'lar `@motif-ui/react/hooks` alt yolundan içe aktarılır:
 
 ```ts
-import { useToggle, useOutsideClick, useTimeout, useScreenSize, useDomReady } from "@ab-demo-ui/demo-react/hooks";
+import { useToggle, useOutsideClick, useTimeout, useScreenSize, useDomReady } from "@motif-ui/react/hooks";
 ```
 
 ### `useToggle(baslangicGorunurluk?, gecisZamani?)`
@@ -153,7 +153,7 @@ CSS değişkenleri aracılığıyla tasarım tokenlarını çalışma zamanında
 İsteğe bağlı olarak özel bir `font` ailesi ve `locale` (`"tr"` | `"en"`) belirleyebilirsiniz.
 
 ```tsx
-import { EDKUIProvider } from "@ab-demo-ui/demo-react";
+import { EDKUIProvider } from "@motif-ui/react";
 
 const temam = {
   color: {
@@ -173,9 +173,9 @@ const temam = {
 Hazır temalar CSS dosyası olarak da doğrudan içe aktarılabilir:
 
 ```ts
-import "@ab-demo-ui/demo-react/themes/default-theme.css";
+import "@motif-ui/react/themes/default-theme.css";
 // ya da
-import "@ab-demo-ui/demo-react/themes/papyrus.css";
+import "@motif-ui/react/themes/papyrus.css";
 ```
 
 ---
