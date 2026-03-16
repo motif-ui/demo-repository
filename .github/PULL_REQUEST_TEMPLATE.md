@@ -1,7 +1,9 @@
 ## Description
+
 <!-- Please describe your changes and how this PR provides a solution -->
 
 ## Type of Change
+
 <!-- Please select options that are relevant -->
 
 - [ ] 🆕 New Component
@@ -26,7 +28,5 @@
 ## How to Test
 
 <!-- Brief steps for reviewers -->
-
-
 
 <!-- Closes [INTERNAL_ISSUE_ID]: Internal purposes only -->
