@@ -21,7 +21,7 @@ jobs:
         id: team-check
         uses: ./.github/actions/check-core-team
         with:
-          core-team: ${{ vars.CORE_TEAM }}
+          pr-author: ${{ github.event.pull_request.user.login }}
 
       - name: Fail if not core team
         if: steps.team-check.outputs.is-internal != 'true'

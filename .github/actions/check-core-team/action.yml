@@ -1,9 +1,9 @@
 name: Check Core Team Membership
-description: Outputs whether the current GitHub actor is a core team member.
+description: Outputs whether the PR creator is a core team member.
 
 inputs:
-  core-team:
-    description: 'Comma-separated list of core team member usernames (from vars.CORE_TEAM)'
+  pr-author:
+    description: 'The GitHub username of the PR creator (github.event.pull_request.user.login)'
     required: true
 
 outputs:
@@ -18,17 +18,17 @@ runs:
       id: check
       shell: bash
       env:
-        CORE_TEAM_INPUT: ${{ inputs.core-team }}
+        CORE_TEAM_INPUT: ${{ vars.CORE_TEAM }}
+        PR_AUTHOR: ${{ inputs.pr-author }}
       run: |
-        ACTOR="$GITHUB_ACTOR"
         IS_INTERNAL="false"
         while IFS=',' read -ra members; do
           for member in "${members[@]}"; do
             trimmed=$(echo "$member" | xargs)
-            if [ "$trimmed" = "$ACTOR" ]; then
+            if [ "$trimmed" = "$PR_AUTHOR" ]; then
               IS_INTERNAL="true"
             fi
           done
         done <<< "$CORE_TEAM_INPUT"
         echo "is-internal=$IS_INTERNAL" >> "$GITHUB_OUTPUT"
-        echo "Actor: $ACTOR | Internal: $IS_INTERNAL"
+        echo "Actor: $PR_AUTHOR | Internal: $IS_INTERNAL"
