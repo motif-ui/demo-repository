@@ -23,7 +23,6 @@
 - [ ] Uses design tokens — no hardcoded style values
 - [ ] Accessible (keyboard nav, ARIA, contrast)
 - [ ] Tests added/updated and passing
-- [ ] Storybook story added/updated
 
 ## How to Test
 
