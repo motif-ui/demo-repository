@@ -1,29 +1,27 @@
 name: Auto Assign PR to Author
 
 on:
-  pull_request:
-    types: [opened, reopened]
+  pull_request_target:
+    types: [opened]
+
 permissions:
   pull-requests: write
-  contents: none
+  contents: read
 
 jobs:
   assign-and-review:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if actor is core team member
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: 'false'
+
+      - name: Check core team membership
         id: check_team
-        env:
-          CORE_TEAM: ${{ vars.CORE_TEAM }}
-        run: |
-          CORE_TEAM_LIST="${CORE_TEAM}"
-          ACTOR="${{ github.actor }}"
-          if echo "$CORE_TEAM_LIST" | tr ',' '\n' | grep -qx "$ACTOR"; then
-            echo "is_internal=true" >> $GITHUB_OUTPUT
-          else
-            echo "is_internal=false" >> $GITHUB_OUTPUT
-          fi
+        uses: ./.github/actions/check-core-team
+        with:
+          pr-author: ${{ github.event.pull_request.user.login }}
 
       - name: Assign PR to author
-        if: steps.check_team.outputs.is_internal == 'true'
+        if: steps.check_team.outputs.is-internal == 'true'
         uses: toshimaru/auto-author-assign@v3.0.1
