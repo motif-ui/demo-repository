@@ -1,1 +1,10 @@
-* @motif-ui/core-team
+# CODEOWNERS — requires approval from a code owner before any PR can be merged.
+# Combined with branch protection rules, this prevents merging unauthorized
+# changes to CI/CD files even if a workflow check is bypassed.
+#
+# Set up in: Settings > Branches > Branch protection rules
+# Enable: "Require review from Code Owners"
+
+# All workflow and action files require core team review
+.github/workflows/   @atakanbayrak
+.github/actions/     @atakanbayrak
