@@ -1,0 +1,91 @@
+name: PR Labeler
+
+on:
+  workflow_run:
+    workflows: ["PR Check"]
+    types: [completed]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  label:
+    # Sadece PR Check başarılıysa çalış
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        # Burada head.repo YOK → base repo checkout edilir
+        # .github/actions/check-core-team base repo'dan gelir ✅
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: pr-metadata
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: ${{ github.event.workflow_run.id }}
+          path: artifacts/
+
+      - name: Read PR metadata
+        id: metadata
+        run: |
+          echo "pr_number=$(cat artifacts/pr_number)" >> $GITHUB_OUTPUT
+          echo "pr_title=$(cat artifacts/pr_title)" >> $GITHUB_OUTPUT
+          echo "pr_author=$(cat artifacts/pr_author)" >> $GITHUB_OUTPUT
+          echo "pr_body=$(cat artifacts/pr_body)" >> $GITHUB_OUTPUT
+
+      - name: Check core team membership
+        id: team-check
+        uses: ./.github/actions/check-core-team  # base repo'dan gelir ✅
+        with:
+          pr-author: ${{ steps.metadata.outputs.pr_author }}
+
+      - name: Sync release labels
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = '${{ steps.metadata.outputs.pr_title }}';
+            const prNumber = parseInt('${{ steps.metadata.outputs.pr_number }}');
+            const MAJOR_PATTERN = /^[a-z]+(\(.+\))?!:/;
+            const TYPE_PATTERN = /^([a-z]+)/;
+            const MAPPING = { feat: "minor", perf: "minor", fix: "patch", revert: "patch" };
+
+            const type = title.match(TYPE_PATTERN)?.[1];
+            const target = MAJOR_PATTERN.test(title) ? "release:major" : (MAPPING[type] && `release:${MAPPING[type]}`);
+
+            const { data: labels } = await github.rest.issues.listLabelsOnIssue({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber
+            });
+
+            for (const label of labels) {
+              if (label.name.startsWith("release:") && label.name !== target) {
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: prNumber,
+                  name: label.name
+                });
+              }
+            }
+
+            if (target && !labels.find(l => l.name === target)) {
+              await github.rest.issues.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                labels: [target]
+              });
+            }
+
+      - name: Check internal issue reference
+        if: steps.team-check.outputs.is-internal == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prBody = `${{ steps.metadata.outputs.pr_body }}`;
+            const issuePattern = /#EDKUI-\d+/;
+            if (!issuePattern.test(prBody)) {
+              core.setFailed('❌ Core team PRs must include an internal issue reference.');
+            }
