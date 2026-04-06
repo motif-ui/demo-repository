@@ -13,8 +13,6 @@ name: "Workflow Protection"
 on:
   pull_request:
     types: [opened, synchronize]
-    paths:
-      - '.github/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
@@ -29,44 +27,50 @@ jobs:
     name: Detect Workflow Tampering
     runs-on: ubuntu-latest
     steps:
-      # Safe: pull_request event checks out fork code with no secrets available.
-      - name: Checkout PR code
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.pull_request.head.ref }}
-          persist-credentials: false
+      # No checkout needed — all checks use the GitHub API.
+      # This avoids credentials entirely and removes the tj-actions dependency.
 
-      - name: Check if actor is a repo collaborator
-        id: auth
+      - name: Check for unauthorized .github/ changes
         uses: actions/github-script@v7
         with:
           script: |
+            // 1. Get all files changed in this PR via API (no git fetch needed)
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              per_page: 100,
+            });
+
+            const sensitiveFiles = files.filter(f =>
+              f.filename.startsWith('.github/workflows/') ||
+              f.filename.startsWith('.github/actions/')
+            );
+
+            if (sensitiveFiles.length === 0) {
+              core.info('No workflow or action files changed. ✅');
+              return;
+            }
+
+            // 2. Check if the PR author is an authorized collaborator
+            let authorized = false;
             try {
               const { data } = await github.rest.repos.getCollaboratorPermissionLevel({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 username: context.payload.pull_request.user.login,
               });
-              const authorized = ['admin', 'maintain', 'write'].includes(data.role_name);
-              core.setOutput('authorized', String(authorized));
+              authorized = ['admin', 'maintain', 'write'].includes(data.role_name);
             } catch {
-              core.setOutput('authorized', 'false');
+              authorized = false;
             }
 
-      - name: Get changed files under .github/
-        id: changed
-        uses: tj-actions/changed-files@6b2903bdce6310cfbddd87c418f253cf29b2dec9 # pin to SHA — v44 tag was compromised in Mar 2025
-        with:
-          files: |
-            .github/workflows/**
-            .github/actions/**
-
-      - name: Fail on unauthorized .github/ changes
-        if: steps.changed.outputs.any_changed == 'true' && steps.auth.outputs.authorized != 'true'
-        run: |
-          echo "❌ This PR modifies workflow or action files."
-          echo "Only collaborators with write/maintain/admin access may change files under .github/."
-          echo "Changed files:"
-          echo "${{ steps.changed.outputs.all_changed_files }}"
-          exit 1
+            if (!authorized) {
+              const changed = sensitiveFiles.map(f => `  - ${f.filename}`).join('\n');
+              core.setFailed(
+                `❌ This PR modifies protected files and the author is not an authorized collaborator.\n` +
+                `Changed files:\n${changed}`
+              );
+            } else {
+              core.info(`Authorized collaborator modifying .github/ files. ✅`);
+            }
