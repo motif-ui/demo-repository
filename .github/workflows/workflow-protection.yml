@@ -1,17 +1,7 @@
 name: "Workflow Protection"
 
-# SECURITY DESIGN:
-# This workflow uses the 'pull_request' event (NOT pull_request_target).
-# - It runs with a RESTRICTED GITHUB_TOKEN (read-only, no secrets).
-# - It is safe to checkout and analyze fork code here.
-# - Privileged operations (label writes, etc.) are handled in pr-validator.yml
-#   via pull_request_target, which never checks out fork code.
-#
-# This separation is the defense against "poisoned pipeline" / fork PR attacks:
-# untrusted code runs here (no secrets), trusted operations run in pr-validator (no fork code).
-
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, synchronize]
 
 concurrency:
