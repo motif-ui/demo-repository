@@ -1,0 +1,34 @@
+name: UI
+
+on:
+  workflow_run:
+    workflows: ["Build Storybook"]
+    types: [completed]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  chromatic:
+    name: Chromatic
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Download Storybook artifact
+        uses: actions/download-artifact@v4 # v4
+        with:
+          name: storybook-static
+          path: storybook-static/
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: ${{ github.event.workflow_run.id }}
+
+      - name: Run Chromatic
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          storybookBuildDir: storybook-static
+          zip: true
+          skip: "dependabot/**"
+          autoAcceptChanges: "main"
