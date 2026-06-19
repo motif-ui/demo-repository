@@ -22,7 +22,7 @@
 - [ ] Self-reviewed, no leftover logs or debug code
 - [ ] Uses design tokens — no hardcoded style values
 - [ ] Accessible (keyboard nav, ARIA, contrast)
-- [ ] Tests added/updated and passing
+
 
 ## How to Test
 
