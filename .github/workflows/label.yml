@@ -1,0 +1,22 @@
+name: Auto labeling
+
+on:
+  issues:
+    types: [opened, reopened]
+  pull_request:
+    types: [opened, reopened]
+
+permissions:
+  issues: write
+  pull-requests: write
+  contents: read
+
+jobs:
+  label_issues:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Label issues and PRs
+        uses: andymckay/labeler@1.0.4
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          add-labels: 'needs consideration'
