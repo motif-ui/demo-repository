@@ -1,1 +1,1 @@
-MotifUI
+Motif
