@@ -12,25 +12,26 @@ permissions:
 jobs:
   chromatic:
     name: Chromatic
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
+    environment: development
     continue-on-error: true
     steps:
-      - name: Download Storybook artifact
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Setup Node & Cache
         uses: actions/download-artifact@v4 # v4
         with:
           name: storybook-static
-          path: storybook-static/
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           run-id: ${{ github.event.workflow_run.id }}
 
-      - uses: ./.github/actions/setup-node-deps
-
       - name: Run Chromatic
-        uses: chromaui/action@latest
+        uses: chromaui/action@7804f34e4e59c0d9b3c856848f46ad96d7897429 # v17.5.0
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          storybookBuildDir: storybook-static
+          onlyChanged: true
+          storybookBuildDir: storybook-static/
           zip: true
           skip: "dependabot/**"
           autoAcceptChanges: "main"
+          exitOnceUploaded: true
