@@ -1,37 +1,39 @@
 name: UI
 
 on:
-  workflow_run:
-    workflows: ["Build Storybook"]
-    types: [completed]
+  pull_request_target:
+    types: [opened, synchronize, reopened]
 
+# Minimal token scope. pull_request_target grants a base-repo-scoped GITHUB_TOKEN
+# by default; keep it read-only so untrusted PR code cannot misuse it.
 permissions:
   contents: read
-  pull-requests: read
-  actions: read
 
 jobs:
   chromatic:
-    if: github.event.workflow_run.conclusion == 'success'
     name: Chromatic
     runs-on: ubuntu-latest
+    # Security boundary: this job builds and runs PR code (possibly from a fork)
+    # while the Chromatic token is in scope. The `development` environment's
+    # required reviewer pauses the run until a maintainer approves it — review the
+    # PR diff before approving. Approval is re-requested on every new push.
     environment: development
     continue-on-error: true
     steps:
-      - name: Checkout
+      - name: Checkout PR head
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
-          repository: ${{ github.event.workflow_run.head_repository.full_name }}
-          ref: ${{ github.event.workflow_run.head_branch }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: '0'
+          # Do not leave the write-scoped GITHUB_TOKEN in .git/config where
+          # build scripts of untrusted PR code could read it.
+          persist-credentials: 'false'
 
-      - name: Download Storybook artifact
-        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
-        with:
-          name: storybook-static
-          path: storybook-static/
-          run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ./.github/actions/setup-node-deps
+
+      - name: Build Storybook
+        run: npm run build:storybook
 
       - name: Run Chromatic
         uses: chromaui/action@7804f34e4e59c0d9b3c856848f46ad96d7897429 # v17.5.0
