@@ -26,8 +26,6 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: '0'
-          # Do not leave the write-scoped GITHUB_TOKEN in .git/config where
-          # build scripts of untrusted PR code could read it.
           persist-credentials: 'false'
 
       - uses: ./.github/actions/setup-node-deps
