@@ -3,9 +3,9 @@ import "@testing-library/jest-dom";
 import Divider from "./Divider";
 
 describe("Divider", () => {
-  /*  it("should be rendered with only required props", () => {
-    expect(render(<Divider />).container).toMatchSnapshot();
-  });*/
+  it("should be rendered with only required props", () => {
+    expect(render(<Divider />).container).not.toMatchSnapshot();
+  });
 
   /*  it("should be rendered as small sized as default if no size prop is given", () => {
     const { container } = render(<Divider />);
