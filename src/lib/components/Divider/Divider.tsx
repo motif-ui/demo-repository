@@ -8,10 +8,10 @@ import usePropsWithThemeDefaults from "../../motif/hooks/usePropsWithThemeDefaul
 
 const Divider = (props: PropsWithRef<DividerProps, HTMLDivElement>) => {
   const {
-    size = "md",
-    orientation = "horizontal",
-    gap = "md",
-    shape = "solid",
+    size = "lg",
+    orientation = "vertical",
+    gap = "lg",
+    shape = "dotted",
     style,
     className,
     ref,
